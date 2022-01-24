@@ -27,7 +27,7 @@
         </div>
         <div class="input-group">
             <label for="registercontactnumber">Contact Number</label>
-            <input type="text" name="registercontactnumber" id="registercontactnumber" required>
+            <input type="text" name="registercontactnumber" id="registercontactnumber" pattern="[0-9]{10}"required>
             </div>
             <div class="input-group">
                 <label for="registeraddress">Address</label>
