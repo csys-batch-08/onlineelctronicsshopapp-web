@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Search component</title>
 </head>
 <body>
 <%
@@ -43,24 +43,25 @@
 <td>Description</td>
 <td>TotalPrice</td>
 </tr>
-<%
-for(int i=0;i<componentList.size();i++)
-{
-Components comDao1=componentList.get(i);
-session.setAttribute("componentName" ,comDao1.getComponentName());
-session.setAttribute("price",comDao1.getPrice());
-session.setAttribute("Category",comDao1.getCategoryName()); 
-%>
-<tr>
-<td><img alter="#alter" src="images1/<%=comDao1.getImage()%>" width="200"height="200"></td>
-<td><%=comDao1.getComponentId() %></td>
-<td><%=comDao1.getComponentName()%></td>
-<td><%=comDao1.getCategoryName()%></td>
-<td><%=comDao1.getDescription() %></td>
-<td><%=comDao1.getPrice()%></td>
-<td><a href="insertCart.jsp?componentId=<%=comDao1.getComponentId()%>&compantName=<%=comDao1.getComponentName()%>&price=<%=comDao1.getPrice()%>">Add to cart</a></td>
-</tr>
-<%} %>
+<c:forEach items="${showComponent}" var="component" >
+
+			
+			<tr>
+				<td><img alter="#alter" src="images1/${component.image}"
+					width="200" height="200"><br>
+					
+				<span style="visibility:hidden;">${component.componentId}</span><br><br>
+				Component Name:${component.componentName}<br><br>
+				Category Name:${ component.categoryName}<br><br>
+				Description:${component.description}<br><br>
+				Price:${component.price}<br><br>
+				<a class="btn" href="insertCart.jsp?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">AddToCart</a>&nbsp;
+				<a class="btn" href="BuyComponent.jsp?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">Buy</a>&nbsp;
+				<br>
+				</td>		
+			</tr>
+			</c:forEach>
+
 </table>		 
 </body>
 </html>

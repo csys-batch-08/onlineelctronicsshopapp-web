@@ -40,7 +40,7 @@ public void insertCmponent(Components component) {
 			List<Components> componentsList=new ArrayList<Components>();
 			
 				try {
-				String showQuery="select*from component_info";
+				String showQuery="select component_id,component_name,category_name,description,total_price,status,picture from component_info";
 				Connection con=ConnectionUtil.getDbConnection();
 			    Statement stmt=con.createStatement();
 			    ResultSet rs=stmt.executeQuery(showQuery);
@@ -60,7 +60,7 @@ public void insertCmponent(Components component) {
 			List<Components> componentsList=new ArrayList<Components>();
 			
 				try {
-				String showQuery="select*from component_info where component_name like '%"+search+"%' or category_name like '%"+search+"%'";
+				String showQuery="select component_id,component_name,category_name,description,total_price,status,picture from component_info where component_name like '%"+search+"%' or category_name like '%"+search+"%'";
 				Connection con=ConnectionUtil.getDbConnection();
 			    Statement stmt=con.createStatement();
 			    ResultSet rs=stmt.executeQuery(showQuery);
@@ -97,23 +97,26 @@ public void insertCmponent(Components component) {
 			return componentId;
 			
 		}
-		public Components findComponent(int componentId) {
-			String query="select *from component_info where component_id=?";
+		public String findComponent(int componentId) {
+			String query="select component_name from component_info where component_id=?";
 		Connection con=ConnectionUtil.getDbConnection();
-		Components component=null;
+		String name=null;
+		System.out.println(componentId);
+		
 		try {
 			PreparedStatement pstmt=con.prepareStatement(query);
 			pstmt.setInt(1, componentId);
-			ResultSet rs=pstmt.executeQuery(query);
+			ResultSet rs=pstmt.executeQuery();
 			if(rs.next()) {
-				component=new Components(rs.getString(2),rs.getString(3),rs.getString(4),rs.getDouble(5),rs.getString(6));
+				name=(rs.getString(1));
+				System.out.println(name);
 			}}
 			catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			return component;
+			return name;
 			
 		}
 		

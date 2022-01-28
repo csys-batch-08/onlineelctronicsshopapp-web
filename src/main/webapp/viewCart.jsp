@@ -4,7 +4,8 @@
 <%@page import="com.onlineelectronicshop.daoImpl.CartDaoImpl"%>
 <%@page import="com.onlineelectronicshop.daoImpl.ComponentDaoImpl"%>
  <%@ page import="com.onlineelectronicshop.model.Components" %>
- <%@ page import="java.util.List" %>  
+ <%@ page import="java.util.List" %> 
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,13 +25,7 @@ body{
 
 </style>
 <h3 style=color:white>Cart</h3>
-<%
-int userId=(int) session.getAttribute("userId");
-CartDaoImpl cartDao=new CartDaoImpl();
-int compid=(int) session.getAttribute("compID");
-List<Components> componentsList=cartDao.fetchCart(userId);
-for(Components component:componentsList){
-%>
+<c:forEach items="${viewCart}" var="cart">
 </head>
 <body>
 
@@ -39,22 +34,19 @@ for(Components component:componentsList){
 
 <tbody>
 <tr>
-<td style="visibility:hidden;"><%=component.getComponentId() %></td>
-<td style="visibility:hidden;"><%=component.getComponentName() %>
-<td style="visibility:hidden;"><%=component.getCategoryName() %>
-<td style="visibility:hidden;"><%=component.getPrice() %>
-</tr>
+
+
 <form action="OrderServlet" method="post"><br>
-<input type="hidden" name="componentId" value="<%=compid %>">
+<input type="hidden" name="componentId" value="${cart.componentId}">
 <br><br>
-<span>Component Name: <%=component.getComponentName()%> </span><br>
+<span>Component Name:${cart.componentName}</span><br>
 
 <br><br>
 <lable>Enter quantity</lable>
 <input type="number" name="quantity" min="1" required>
 <br>
 
-<input type="number" name="price" value="<%=component.getPrice() %>">
+<input type="number" name="price" value="${cart.price}">
 <br><br>
 <lable>Enter address </lable>
 <input type="text" name="address" required>
@@ -63,7 +55,7 @@ for(Components component:componentsList){
 </form>
 </table>
 
-<%} %>
+</c:forEach>
 
 </body>
 </html>

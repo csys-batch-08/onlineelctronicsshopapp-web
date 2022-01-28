@@ -110,6 +110,11 @@ public class Order {
 				&& Double.doubleToLongBits(totalPrice) == Double.doubleToLongBits(other.totalPrice)
 				&& userId == other.userId;
 	}
+	@Override
+	public String toString() {
+		return "Order [orderid=" + orderid + ", componentId=" + componentId + ", userId=" + userId + ", quantity="
+				+ quantity + ", totalPrice=" + totalPrice + ", address=" + address + ", orderDate=" + orderDate + "]";
+	}
 	
 	
 	

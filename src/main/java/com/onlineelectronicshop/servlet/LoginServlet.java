@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		PrintWriter pw=response.getWriter();
-		//System.out.println("Hi");
+		
 		Connection con=ConnectionUtil.getDbConnection();
 		
 		String emailid=request.getParameter("loginemail");

@@ -76,11 +76,11 @@ body {
 <body>
 <div class="sidebar">
   <a class="active" href="Home.jsp">Home</a>
-  <a href="showComponents.jsp">Components</a>
- <a href="MyProfile.jsp">My profile</a>
+  <a href="ShowComponentServlet">Components</a>
+ <a href="MyProfileServlet">My profile</a>
  <a href="rechargeWallet.jsp">Wallet</a>
- <a href="MyOrders.jsp">MyOrders</a>
- <a href="cancelOrder.jsp">CancelOrder</a>
+ <a href="ShowOrderServlet">MyOrders</a>
+ <a href="CancelOrderRefundServlet">CancelOrder</a>
  <a href="Home.jsp">Logout</a>
 </div>
 </body>

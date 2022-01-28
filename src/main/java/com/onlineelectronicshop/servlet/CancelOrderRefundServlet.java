@@ -1,7 +1,9 @@
 package com.onlineelectronicshop.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,53 +11,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.onlineelectronicshop.daoImpl.ComponentDaoImpl;
 import com.onlineelectronicshop.daoImpl.OrderDaoImpl;
-import com.onlineelectronicshop.daoImpl.WalletDaoImpl;
+import com.onlineelectronicshop.daoImpl.UserDaoImpl;
+import com.onlineelectronicshop.model.Order;
 import com.onlineelectronicshop.model.User;
 
 
-@WebServlet("/CancelOrderServlet")
-
-/**
- * Servlet implementation class CancelOrderServlet
- */
-public class CancelOrderServlet extends HttpServlet {
+@WebServlet("/CancelOrderRefundServlet")
+public class CancelOrderRefundServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CancelOrderServlet() {
+    
+    public CancelOrderRefundServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session=request.getSession();
-
-		int orderid=Integer.parseInt(request.getParameter("orderId"));
-		double price=Double.parseDouble(request.getParameter("refundprice"));
-		User user=(User)session.getAttribute("CurentUser");
 		OrderDaoImpl orderDao=new OrderDaoImpl();	
-		boolean b=orderDao.updateStatus(orderid);
-		if(b) {
-			WalletDaoImpl wallet=new WalletDaoImpl();
-			
-			boolean b1=wallet.refundWallet(price,user);
-			if(b1) {
-				session.setAttribute("cancel","Order cancelled and amount refunded successfully!!");
-				response.sendRedirect("CancelOrderRefundServlet");
-				
-			}
-			
-		}
+		int userId=(int) session.getAttribute("userId");
+		UserDaoImpl userDao=new UserDaoImpl();
+		ComponentDaoImpl comDao=new ComponentDaoImpl();
+		
+		List<Order> orderList=orderDao.showOrder(userId);
+		User user = userDao.findUser(userId);
+		request.setAttribute("listOfOrder", orderList);	
+		request.setAttribute("User", user);
+		RequestDispatcher requestDispatch = request.getRequestDispatcher("cancelOrder.jsp");
+		requestDispatch.forward(request, response);
+		System.out.println(orderList);			
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

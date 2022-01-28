@@ -54,8 +54,6 @@ public class RegisterServlet extends HttpServlet {
 		String password=request.getParameter("registerpassword");
 		Long mobilenumber=Long.parseLong(request.getParameter("registercontactnumber"));
 		String address=request.getParameter("registeraddress");
-		
-
 		System.out.println(name+emailid+password+mobilenumber+address);
 		
 		User user=new User(name,emailid,password,mobilenumber,address);
@@ -65,5 +63,4 @@ public class RegisterServlet extends HttpServlet {
 //		rd.forward(request, response);
 		response.sendRedirect("login.jsp");
 	}
-
 }

@@ -3,6 +3,8 @@
     <%@ page import="com.onlineelectronicshop.daoImpl.UserDaoImpl" %>
     <%@ page import="com.onlineelectronicshop.model.User" %>
   <%@ page import="java.util.List" %>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,26 +135,18 @@ input {
 <div class="card">
 <center><h1>My Profile</h1></center>
 
-<%User user=(User) session.getAttribute("CurentUser");
-UserDaoImpl daoImpl=new UserDaoImpl(); 
-List<User> UsersList =daoImpl.showAllUser();
-for(User user1:UsersList){
-	if(user1.getUserName().equalsIgnoreCase(user.getUserName())){
-		user=user1;
-	}
-}
-%>
+<c:forEach items="${listOfUser}" var="users">
 
-<h5>User name:<%=user.getUserName() %></h5>
+<h5>User name:${users.userName}</h5>
 <br>
-<h5>Email id:<%=user.getEmailId() %></h5>
+<h5>Email id:${users.emailId}</h5>
 
 <br>
-<h5>Wallet amount:<%=user.getWallet() %></h5>
+<h5>Wallet amount:${users.wallet}</h5>
 
 <br>
 
-
+</c:forEach>
 </div>
 </body>
 </html>

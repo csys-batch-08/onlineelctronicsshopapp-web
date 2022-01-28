@@ -5,6 +5,7 @@
 <%@page import="com.onlineelectronicshop.daoImpl.ComponentDaoImpl"%>
  <%@ page import="com.onlineelectronicshop.model.Components" %>
  <%@ page import="java.util.List" %>  
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,51 +25,36 @@ body{
 
 </style>
 
-<%
-int userId=(int) session.getAttribute("userId");
-CartDaoImpl cartDao=new CartDaoImpl();
 
-List<Components> componentsList=cartDao.fetchCart(userId);
-for(Components component:componentsList){
-%>
 </head>
 <body>
 <h3 style=color:white>Cart</h3>
-<table>
-
-
-<tbody>
-
-<!--
-<td style="visibility:hidden;"><%=component.getComponentId() %></td>
-<td style="visibility:hidden;"><%=component.getComponentName() %>
-<td style="visibility:hidden;"><%=component.getCategoryName() %>
-<td style="visibility:hidden;"><%=component.getPrice() %>
-</tr>
--->
-<%int componentId=Integer.parseInt(request.getParameter("componentId"));%>
-<%String componentName=request.getParameter("compantName"); %>
-<%Double price=Double.parseDouble(request.getParameter("price")); %>
-
 <form action="BuyServlet" method="post"><br>
-<input type="hidden" name="componentId" value="<%=componentId %>">
+<c:if test="${componentId!=null }">
+<input type="hidden" name="componentId" value="${componentId}">
+</c:if>
 <br><br>
-<span>Component Name: <%=componentName%> </span><br>
+<c:if test="${componentName!=null }">
+        <p>ComponentName:${componentName}<p>
+        </c:if>
+
 
 <br><br>
 <lable>Enter quantity</lable>
 <input type="number" name="quantity" min="1" required>
 <br>
-
-<input type="number" name="price" value="<%=price %>">
+<c:if test="${price!=null }">
+       
+<input type="number" name="price" value="${price}">
+</c:if>
 <br><br>
 <lable>Enter address </lable>
 <input type="text" name="address" required>
 <br>
 <button type="submit">Buy</button>
 </form>
-</table>
-<%} %>
+
+
 
 </body>
 </html>

@@ -34,8 +34,9 @@
                 <input type="text" name="registeraddress" id="registeraddress">
                 </div>
         <input type="submit" value="submit" class="submit-btn">
+         </div>
     </form>
-    </div>
+   
         
 </body>
 </html>

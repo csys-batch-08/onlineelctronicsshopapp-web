@@ -11,7 +11,7 @@
 }
 body{
     
-    background-image: url("home background.jpg");
+    background-image: url('images1/home background.jpg');
     background-repeat:no repeat;
     background-size: cover;
    

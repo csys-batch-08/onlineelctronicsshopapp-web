@@ -4,6 +4,8 @@
 <%@ page import="com.onlineelectronicshop.model.Components"%>
 <%@ page import="com.onlineelectronicshop.daoImpl.UserDaoImpl"%>
 <%@ page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -109,37 +111,27 @@ body {
 	</form>
 		<br>
 	<form>
-		<table id="components">
+		<table id="components">   
 		
-			<%
-			ComponentDaoImpl comDao = new ComponentDaoImpl();
-			UserDaoImpl userDaoImpl = new UserDaoImpl();
-			List<Components> componentList = comDao.showComponent();
+<c:forEach items="${showComponent}" var="component">
 
-			for (int i = 0; i < componentList.size(); i++) {
-				Components comDao1 = componentList.get(i);
-
-				session.setAttribute("componentName", comDao1.getComponentName());
-				session.setAttribute("price", comDao1.getPrice());
-				session.setAttribute("Category", comDao1.getCategoryName());
-			%>
+			
 			<tr>
-				<td><img alter="#alter" src="images1/<%=comDao1.getImage()%>"
+				<td><img alter="#alter" src="images1/${component.image}"
 					width="200" height="200"><br>
 					
-				<span style="visibility:hidden;"><%=comDao1.getComponentId()%></span><br><br>
-				Component Name:<%=comDao1.getComponentName()%><br><br>
-				Category Name:<%=comDao1.getCategoryName()%><br><br>
-				Description:<%=comDao1.getDescription()%><br><br>
-				Price:<%=comDao1.getPrice()%><br><br>
-				<a class="btn" href="insertCart.jsp?componentId=<%=comDao1.getComponentId()%>&compantName=<%=comDao1.getComponentName()%>&price=<%=comDao1.getPrice()%>">AddToCart</a>&nbsp;
-				<a class="btn" href="BuyComponent.jsp?componentId=<%=comDao1.getComponentId()%>&compantName=<%=comDao1.getComponentName()%>&price=<%=comDao1.getPrice()%>">Buy</a>&nbsp;
+				<span style="visibility:hidden;">${component.componentId}</span><br><br>
+				Component Name:${component.componentName}<br><br>
+				Category Name:${ component.categoryName}<br><br>
+				Description:${component.description}<br><br>
+				Price:${component.price}<br><br>
+				<a class="btn" href="CartServlet?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">AddToCart</a>&nbsp;
+				<a class="btn" href="ProceedBuyServlet?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">Buy</a>&nbsp;
 				<br>
 				</td>		
 			</tr>
-			<%
-			}
-			%>	
+			</c:forEach>
+			
 	</table>
 	</form>
 </body>

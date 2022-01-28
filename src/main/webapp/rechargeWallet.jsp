@@ -55,10 +55,6 @@ border-collapse:collapse;
     </div>
     <br>
     </nav>	
-
-
-
-
 <center>
 <form action="RechargeWalletServlet" method="post">
 <fieldset>
@@ -70,7 +66,6 @@ border-collapse:collapse;
              
     </fieldset>
     <br>
-    
     </form>
     </center>
 </body>

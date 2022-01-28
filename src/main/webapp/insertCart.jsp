@@ -5,6 +5,7 @@
   
   <%@ page import="com.onlineelectronicshop.model.Order" %>
   <%@ page import="java.util.List" %>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,26 +33,25 @@ body{
 %>-->
 <%//int productId=Integer.parseInt(request.getParameter("produId"));%>
 <%//int cartId1=Integer.parseInt(request.getParameter(""));%>
-<%String compantName=request.getParameter("compantName");
-Double price=Double.parseDouble(request.getParameter("price"));
-int compantId=Integer.parseInt(request.getParameter("componentId"));
-session.setAttribute("price", price);
-%>
+
 </style>
 </head>
 <body>
+<c:set var="component" scope="session" value="${componentName}"/> 
+ <c:set var="componentId" scope="session" value="${componentId}"/> 
+ <c:set var="price" scope="session" value="${price}"/> 
 <center>
 <h1>Insert cart</h1>
 </center>
 <form action="insertCartServlet" method="post">
 <center>
-<input type="hidden" value="<%=compantId%>" name="compantId"><br><br>
+<input type="hidden" value="${componentId}" name="compantId"><br><br>
 <label>ComponentName</label>
-<input type="text" value="<%=compantName %>" name="CompantName"><br><br>
+<input type="text" value="${component}" name="CompantName"><br><br>
 <lable>Price</lable>
-<input type="number" value="<%=price%>" name="price"><br>
+<input type="number" value="${price}" name="price"><br>
 <br>
-<button type="submit">submit</button>
+<button type="submit">Submit</button>
 <span><a href="Home.jsp">Home</a></span>
 </center>
 </form>

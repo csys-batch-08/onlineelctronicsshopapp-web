@@ -34,7 +34,7 @@ public class CartDaoImpl {
 
 }
 	
-	public static void updateCart(String updateCart) throws ClassNotFoundException, SQLException {
+	public void updateCart(String updateCart) throws ClassNotFoundException, SQLException {
 		String updateQuery = "update cart set quantity =? where item_id=?";
 
 		Connection con = ConnectionUtil.getDbConnection();
@@ -66,7 +66,7 @@ public class CartDaoImpl {
 			e.printStackTrace();
 		}}
 
-		public static Order findCart(int cartId) {
+		public  Order findCart(int cartId) {
 			String query = "select * from order_items where item_id=?";
 
 			Connection con = ConnectionUtil.getDbConnection();
@@ -112,7 +112,7 @@ public class CartDaoImpl {
 
 		public List<Cart> allCart(){
 			List<Cart> cartList=new ArrayList<Cart>();
-			String cart="select * from cart";
+			String cart="select cart_id,user_id,component_id from cart;";
 			Connection con=ConnectionUtil.getDbConnection();
 			
 			try {

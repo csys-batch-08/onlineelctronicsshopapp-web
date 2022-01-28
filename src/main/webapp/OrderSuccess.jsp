@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,7 @@ body{
 </style>
 </head>
 <body>
-<form action="MyOrders.jsp">
+<form action="ShowOrderServlet">
 
 
 <center><h1>Order success! Thank You!!</h1>
@@ -27,12 +28,13 @@ body{
 <button type="submit">click to check order</button><br>
 
 
+<c:set var="Price" scope="session" value="${totalprice}"/> 
+<c:set var="wallet" scope="session" value="${wallbal}"/> 
 
-<%double totalprice=(double) session.getAttribute("totalprice");%>
-<h2><i>Your Total Amount is : <%=totalprice %></i></h2>
+<h2><i>Your Total Amount is : ${Price}</i></h2>
 
-<%double wallet1=(double)session.getAttribute("wallbal"); %>
-<h2><i> Your Revised Wallet Amount : <%=wallet1 %></i></h2>
+
+<h2><i> Your Revised Wallet Amount : ${wallet}</i></h2>
 
 <span><a href="invoice.jsp">View Bill</a></span>
 

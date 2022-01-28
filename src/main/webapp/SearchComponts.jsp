@@ -3,6 +3,7 @@
 <%@page import="com.onlineelectronicshop.daoImpl.ComponentDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,35 +87,29 @@ background-color:#00061a;
     </nav>	
 
 <form>
-<table>
-<div>
 <h1>Components</h1>
-</div>
-<%List<Components>user=(List<Components>)session.getAttribute("list");
-for(int i=0;i<user.size();i++)
-{
-	Components comDao1=	user.get(i);
-%>
+
+<table>
+
+<c:forEach items="${list}" var="search" >
 <tr>
 <td>
-<div class="card">
+
 <div class="product-right">
 
-<img alter="#alter" src="images1/<%=comDao1.getImage()%>" width="200"height="200"><br>
+<img alter="#alter" src="images1/${search.image}" width="200"height="200"><br>
 </div>
-<div class="product-total">
-<span style="visibility:hidden;"><%=comDao1.getComponentId() %></span><br><br>
-Component Name:<%=comDao1.getComponentName()%><br><br>
-Category Name:<%=comDao1.getCategoryName()%><br><br>
-Description:<%=comDao1.getDescription()%><br><br>
-Price:<%=comDao1.getPrice()%><br><br>
-<a class="btn" href="insertCart.jsp?componentId=<%=comDao1.getComponentId()%>&compantName=<%=comDao1.getComponentName()%>&price=<%=comDao1.getPrice()%>">AddToCart</a>&nbsp;
-<a class="btn" href="BuyComponent.jsp?componentId=<%=comDao1.getComponentId()%>&compantName=<%=comDao1.getComponentName()%>&price=<%=comDao1.getPrice()%>">Buy</a>&nbsp;
+
+<span style="visibility:hidden;">${search.componentId}</span><br><br>
+				Component Name:${search.componentName}<br><br>
+				Category Name:${ search.categoryName}<br><br>
+				Description:${search.description}<br><br>
+				Price:${search.price}<br><br>
+				<a class="btn" href="CartServlet?componentId=${search.componentId}&compantName=${search.componentName}&price=${search.price}">AddToCart</a>&nbsp;
+				<a class="btn" href="BuyComponent.jsp?componentId=${search.componentId}&compantName=${search.componentName}&price=${search.price}">Buy</a>&nbsp;
 </td>
 </tr>
-</div>
-</div>
-<%} %>
+</c:forEach>
 </table>
 </form>
 </body>

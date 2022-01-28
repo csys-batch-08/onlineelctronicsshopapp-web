@@ -49,9 +49,7 @@ public class UserDaoImpl {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(validateQuery);
 			if (rs.next()) {
-				 System.out.println("sdsafsf");
-				 System.out.println(rs.getString(7)+"role");
-				 System.out.println(rs.getDouble(8)+"Amounts");
+				 
 				user = new User(rs.getInt(1),rs.getString(2),emailId, password, rs.getLong(5),rs.getString(6),rs.getString(7),rs.getDouble(8));
 			}
 		} catch (SQLException e) {
@@ -186,13 +184,5 @@ public class UserDaoImpl {
 	
 return UsersList;
 }
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

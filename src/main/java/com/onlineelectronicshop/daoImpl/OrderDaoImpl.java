@@ -41,28 +41,30 @@ System.out.println("value inserted successfully");
 
 }
 
-public ResultSet showOrder(int userId){
+public List<Order>showOrder(int userId){
 	Connection con=ConnectionUtil.getDbConnection(); 
 	List<Order> orderList=new ArrayList<Order>();
+	ComponentDaoImpl comDao=new ComponentDaoImpl();
 	
-	String query="select* from orders_table where order_status='Not delivered' and user_id='"+userId+"'order by order_date desc";
+	String query="select order_id,user_id,component_id,quantity,total_price,address,order_date,order_status from orders_table where order_status='Not delivered' and user_id='"+userId+"'order by order_date desc";
 	try {
 		Statement stmt=con.createStatement();
 		ResultSet rs=stmt.executeQuery(query);
 	
-//		while(rs.next()) {
+    while(rs.next()) {
 //		String date=rs.getString(7);
 //		LocalDate localdate=LocalDate.parse(date);
-//		Order order=new Order(rs.getInt(2),rs.getInt(3),rs.getInt(4),rs.getDouble(5),rs.getString(6),localdate);
-//		orderList.add(order);
-//	}
+	Order order=new Order(rs.getInt(1),rs.getInt(3),rs.getInt(2),rs.getInt(4),rs.getDouble(5),rs.getString(6),rs.getDate(7).toLocalDate());
+	
+	orderList.add(order);
 		
-       return rs;
+	}
+       return orderList;
 	}catch(SQLException e) {
 		e.printStackTrace();
 	}
 	
-	return null;
+	return orderList;
 	
 }
 
@@ -161,8 +163,7 @@ try {
 } catch (SQLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
-}
-	
+}	
 	return rs;
 }
 
