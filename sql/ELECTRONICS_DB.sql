@@ -26,6 +26,7 @@ select * from user_details where role='user';
 
 desc user_details;
 select * from component_info;
+select component_id,component_name,category_name,description,total_price,status,picture from component_info;
 commit;
 update component_info set total_price=12  where component_id=300;
 select * from  user_details;
@@ -34,7 +35,8 @@ delete from user_details where user_id=126;
 -----component table 
  create table component_info(component_id number generated always as identity(start with 300 increment by 1),
 component_name varchar2(100),
-category_name varchar2(30),description varchar2(500),
+category_name varchar2(30),
+description varchar2(500),
  total_price number(10,2),
  constraint pk_comid primary key(component_id));
  desc component_info;
@@ -80,13 +82,11 @@ values(' Test and Measuring Instruments','Tools and Hardwares','PC-Oscilloscope 
 
 delete from component_info where component_id=360;
 select*from component_info;
+select component_name from component_info where component_id=340;
 select * from component_info where category_name='circuit protection';
 alter table component_info add picture varchar2(2000);
 update component_info set description='DH24 Series Male Plug Double-Mode LC IP67 Waterproof' where component_id=341;
 update component_info set picture='test tool.jpg' where component_id=344;
-update component_info set picture='http://cdn.shopify.com/s/files/1/0527/2692/3444/products/WCS180035AHallEffectbasedLinearCurrentSensor1.jpg?v=1625568541' where component_id=321;
-update component_info set picture='https://cdn.shopify.com/s/files/1/0559/1970/6265/products/arduino-uno-rev3-2_1024x1024@2x.jpg?v=1622123508' where component_id=362;
-update component_info set picture='https://cdn2.webdamdb.com/1280_YgICO0AgDz11EBQU.jpg?1637698927' where component_id=323;
 
 
 
@@ -100,13 +100,13 @@ constraint pk_iid primary key(cart_id),
 constraint fk_user foreign key(user_id) references user_details (user_id),
 constraint fk_comid foreign key(component_id) references component_info(component_id));
 drop table cart;
-
+select cart_id,user_id,component_id from cart;
 select*from cart;
 select *from cart where user_id=102;
 
 delete from cart where cart_id=1017;
 select *from user_details;
-select*from orders_table where user_id=123;
+select*from orders_table where user_id=125;
 
 select component_name,category_name,description,total_price,status from component_info where component_id in(select component_id from cart where user_id=121);
 		    
@@ -123,13 +123,13 @@ drop table orders_table;
 select * from orders_table;
 alter table orders_table modify order_date timestamp;
 drop table orders_table;
-select*from orders_table where user_id=127;
+select*from orders_table where user_id=102;
 update orders_table set order_status='delivered' where order_id=500;
 select *from orders_table where user_id=124 order by order_date desc;
 
 select component_id,sum(total_price) from orders_table where order_status='delivered' and order_date between '06-01-22' and '13-01-22' group by component_id; 
 
-update orders_table; 
+
 alter table orders_table add order_status varchar2(100) default'Not delivered';
 alter table orders_table modify order_status default 'not delivered';
 alter table orders_table drop column order_status;
