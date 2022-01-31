@@ -19,7 +19,7 @@ TO order an electronic component through online
 
 #Admin
 
-Admin name:atchaya
+Admin name:soniya
 
 1.Admin Can Insert new Electronic Components
 
@@ -31,7 +31,7 @@ Admin name:atchaya
 
 5.Admin can update status of delivered component 
 # User
-User name:Soniya
+User name:Rajam
 
 1.User can Order an electronic components
 
