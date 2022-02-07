@@ -52,7 +52,7 @@ public class ProceedBuyServlet extends HttpServlet {
 			session.setAttribute("price", price);
 		}
 		
-		RequestDispatcher requestDispatch=request.getRequestDispatcher("BuyComponent.jsp");
+		RequestDispatcher requestDispatch=request.getRequestDispatcher("buyComponent.jsp");
 		requestDispatch.forward(request, response);
 		
 		

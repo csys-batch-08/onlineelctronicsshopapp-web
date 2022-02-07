@@ -13,7 +13,7 @@ import com.onlineelectronicshop.model.Components;
 /**
  * Servlet implementation class insertComponentServlet
  */
-@WebServlet("/showProductAdmin")
+@WebServlet("/insertComponentServlet")
 public class insertComponentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -44,7 +44,8 @@ public class insertComponentServlet extends HttpServlet {
 		String image=request.getParameter("componentImage");
 	    Components component=new Components(componentName,categoryName,description,price,available,image);
 		ComponentDaoImpl comDao=new ComponentDaoImpl();
-		comDao.insertCmponent(component);
+		comDao.insertComponent(component);
+		response.sendRedirect("viewComponent.jsp");
 		doGet(request, response);
 	}
 

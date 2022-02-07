@@ -5,6 +5,9 @@
     <%@ page import="com.onlineelectronicshop.daoImpl.ComponentDaoImpl" %>
      <%@ page import="com.onlineelectronicshop.daoImpl.OrderDaoImpl" %>
       <%@ page import="com.onlineelectronicshop.daoImpl.InvoiceDaoImpl" %>
+      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+      <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+      
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,26 +91,28 @@ input {
 </style>
 </head>
 <body>
-<form action="viewHomePage.jsp">
+
+<form>
 <header class="header">
    <center>
     <h1>Invoice</h1></center>
   </header>
   <div class="card">
-<%
-User user=(User)session.getAttribute("CurrentUser");
-InvoiceDaoImpl invoice=new InvoiceDaoImpl();
+  
+<c:forEach items="${sessionScope.invoice}" var="Invoice" >
+  <span>UserName:${Invoice.get(0)}</span><br>
+  <span>ComponentName:${Invoice.get(1)}</span><br>
+  <span>Quantity:${Invoice.get(2)}</span><br>
+ <span>Price:${Invoice.get(3)}Rs</span><br>
+ 
+ 
+  <span>OrderDate:<fmt:parseDate value="${Invoice.get(4)}"   pattern="yyyy-MM-dd" var="invoiceDate" type="date"/>
+<fmt:formatDate pattern="dd-MM-yyyy" value="${invoiceDate}"/></span>
+  
+  
+  </c:forEach>
 
-ResultSet rs=invoice.showBill(user.getUserid());
-if(rs.next()){ %>
-	<h1>User name:<%=rs.getString(1) %></h1>
-<h1>Component name:<%=rs.getString(2) %></h1>
-<h1>Quantity:<%=rs.getInt(3) %></h1>
-<h1>Price:<%=rs.getDouble(4) %></h1>
-<h1>Order date:<%=rs.getDate(5) %></h1>
-
-<%} %>
-<button type="submit">Home</button>
+</div>
 </form>
 </body>
 </html>

@@ -33,12 +33,11 @@ public class OrderStatusChangeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		int orderid=Integer.parseInt(request.getParameter("orderid"));
-		System.out.println(orderid);
 		OrderDaoImpl orderDao=new OrderDaoImpl();
 		boolean b=orderDao.updateOrderStatus(orderid);
 		if(b) {
 			
-			response.sendRedirect("orderList.jsp");
+			response.sendRedirect("OrderListServlet");
 		}
 	}
 

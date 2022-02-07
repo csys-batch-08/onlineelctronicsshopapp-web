@@ -1,50 +1,47 @@
 <%@ page import="com.onlineelectronicshop.daoImpl.UserDaoImpl"%>
-  <%@ page import="com.onlineelectronicshop.model.User"%>
-  <%@ page import="java.util.List" %>
-  
+<%@ page import="com.onlineelectronicshop.model.User"%>
+<%@ page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>show all user</title>
 <style>
-table,td,tr{
-border:1px solid black;
-border-collapse:collapse;
+table, td, tr {
+	border: 1px solid black;
+	border-collapse: collapse;
 }
-body{
-    
-    background-image: url("all home page.jpg");
-    background-repeat:no repeat;
-    background-size: cover;
-   
-    font-family: Cambria;
+
+body {
+	background-image: url("assests/images/electronic new.jpg");
+	background-repeat: no repeat;
+	background-size: cover;
+	font-family: Cambria;
 }
 </style>
 </head>
 <body>
-<form >
-<table>
-<tr>
-<td style=color:white>UserName</td>
-<td style=color:white>EmailId</td>
-<td style=color:white>Password</td>
-<td style=color:white>ContactNumber</td>
-<td style=color:white>Address</td>
-</tr>
-<%UserDaoImpl userDao=new UserDaoImpl();			
-List<User> UsersList=userDao.showAllUser();
-for(int i=0;i<UsersList.size();i++) {
-	User user=UsersList.get(i);
-%>
-<tr>
-<td style=color:white><%=user.getUserName()%></td>
-<td style=color:white><%=user.getEmailId() %></td>
-<td style=color:white><%=user.getPassword() %></td>
-<td style=color:white><%=user.getContactNumber()%></td>
-<td style=color:white><%=user.getAddress()%></td>
-</tr><%}%>
-</table>
-</form>
+	<h1>User list</h1>
+	<form>
+		<table>
+			<tr>
+				<th>UserName</th>
+				<th>EmailId</th>
+				<th>Password</th>
+				<th>ContactNumber</th>
+				<th>Address</th>
+			</tr>
+			<c:forEach items="${listOfUser}" var="user">
+				<tr>
+					<td>${user.userName}</td>
+					<td>${user.emailId}</td>
+					<td>${user.password}</td>
+					<td>${user.contactNumber}</td>
+					<td>${user.address}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</form>
 </body>
 </html>

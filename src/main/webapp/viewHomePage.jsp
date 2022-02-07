@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>view home</title>
-
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <style>
 .sidebar {
   margin: 0;
@@ -64,7 +64,7 @@ div.content {
 }
 
 body {
-  background-image: url('images1/slideshow.jpg');
+  background-image: url('assests/images/slideshow.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -74,14 +74,15 @@ body {
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
-  <a class="active" href="Home.jsp">Home</a>
+  <a class="active" href="index.jsp">Home</a>
   <a href="ShowComponentServlet">Components</a>
- <a href="MyProfileServlet">My profile</a>
- <a href="rechargeWallet.jsp">Wallet</a>
+ <a href="MyProfileServlet"><i class="fa fa-fw fa-user"></i>My profile</a>
+ <a href="rechargeWallet.jsp"><i class="fas fa-wallet"></i> Wallet</a>
  <a href="ShowOrderServlet">MyOrders</a>
  <a href="CancelOrderRefundServlet">CancelOrder</a>
- <a href="Home.jsp">Logout</a>
+ <a href="index.jsp"><i class="fa fa-fw fa-user"></i>Logout</a>
 </div>
 </body>
 </html>

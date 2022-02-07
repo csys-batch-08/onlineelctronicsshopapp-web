@@ -1,6 +1,7 @@
 package com.onlineelectronicshop.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -56,10 +57,14 @@ public class InsetCartServlet extends HttpServlet {
        int compid=(int) session.getAttribute("compID");
        List<Components> componentsList=cartDao.fetchCart(userId);
        
+       
        session.setAttribute("viewCart", componentsList);
    	RequestDispatcher requestDispatch=request.getRequestDispatcher("viewCart.jsp");
    	requestDispatch.forward(request, response);
        
+   	
+   	
+   	
 	}
 
 }

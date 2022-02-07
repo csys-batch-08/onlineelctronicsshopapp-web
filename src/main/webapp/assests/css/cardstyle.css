@@ -1,0 +1,23 @@
+*{
+	
+margin: 0;
+padding:0;
+box-sizing:border-box;
+font-family:'poppins',san-serif;
+}
+body
+{
+	background-color:#00e6b8;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	min-height:100vh;
+}
+.container{
+	background-color:#fff;
+	height:500px;
+	width:350px;
+	border-radious:12px;
+	box-shadow:rgba(17,17,26,0.1) 0px 1px 0px,rgba(17,17,26,0.1) 0px 1px 0px,rgba(17,17,26,0.1) 0px 16px 48px;
+	
+}

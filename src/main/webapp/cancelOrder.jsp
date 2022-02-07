@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ page import="com.onlineelectronicshop.daoImpl.OrderDaoImpl" %>
-     <%@ page import="com.onlineelectronicshop.daoImpl.*" %>
-     <%@ page import="com.onlineelectronicshop.model.*" %>
-  <%@ page import="java.util.List" %>
-  <%@ page import="java.time.LocalDate" %>
-<%@page import="java.sql.ResultSet" %> 
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.onlineelectronicshop.daoImpl.OrderDaoImpl"%>
+<%@ page import="com.onlineelectronicshop.daoImpl.*"%>
+<%@ page import="com.onlineelectronicshop.model.*"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.time.LocalDate"%>
+<%@page import="java.sql.ResultSet"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -13,18 +13,15 @@
 <meta charset="ISO-8859-1">
 <title>Cancel order</title>
 <style>
-body{
-    
-    background-image: url("electronic new.jpg");
-    background-repeat:no repeat;
-    background-size: cover;
-   
-    font-family: Cambria;
+body {
+	background-image: url("assests/images/electronic new.jpg");
+	background-repeat: no repeat;
+	background-size: cover;
+	font-family: Cambria;
 }
 
 .menu-bar {
 	background: white;
-	
 }
 
 .menu-bar ul {
@@ -36,76 +33,121 @@ body{
 .menu-bar ul li a {
 	padding: 10px 10px;
 	font-size: 17px;
-	text-decoration:none;
+	text-decoration: none;
 }
 
-table,td,tr{
-border:1px solid black;
-border-collapse:collapse;}
+table, td, tr {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.btn {
+	background-color: #00b8e6;
+	border-radius: 5px;
+	text-decoration: none;
+	display: -moz-inline-box;
+	padding: 5px 5px;
+	text-color: #fff;
+}
+
+.btn:hover {
+	background: #40bf40;
+	color: white;
+}
+
+#order {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#order td, order th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#order tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+#order tr:hover {
+	background-color: #a3c2c2;
+}
+
+#order th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #0080ff;
+	color: black;
+}
 </style>
 </head>
 <body>
-<nav>
+<h1>Cancel order</h1>
+	<script>
+		function myFunction() {
+			alert("Are you sure!do you want to cancel!");
+		}
+	</script>
+	<nav>
 		<div class="menu-bar">
 			<ul>
 				<li><a href="viewHomePage.jsp">Home</a></li>
-				<li><a href="MyProfile.jsp">My profile</a></li>
-                <li><a href="rechargeWallet.jsp">Wallet</a><li>
-                <li><a href="MyOrders.jsp">MyOrders</a></li>
-                <li><a href="contactUs.jsp">Contact Us</a></li>             
-    </ul>
-    </div>
-    <br>
-    </nav>	
+				<li><a href="MyProfileServlet">My profile</a></li>
+				<li><a href="rechargeWallet.jsp">Wallet</a>
+				<li>
+				<li><a href="ShowOrderServlet">MyOrders</a></li>
+				<li><a href="contactUs.jsp">Contact Us</a></li>
+			</ul>
+		</div>
+		<br>
+	</nav>
 
 
-<h1>My Orders</h1>
-<table>
-<tr>
-<td>orderid</td>
-<td>User Name</td>
-<td>Component Name</td>
-<td>Quantity</td>
-<td>Price</td>
-<td>Order Date</td>
-</tr>
-
-<!-- 
-or(int i=0;i<orderList.size();i++){
-	Order order=orderList.get(i);
-LocalDate date=orderList.get(i).getOrderDate();
-System.out.println(date);
-
--->
+	<h1>My Orders</h1>
+	<table id="order">
+		<tr>
+			<th>orderid</th>
+			<th>User Name</th>
+			<th>Component Name</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Order Date</th>
+			<th>Action</th>
+		</tr>
 
 
-<tr>
-<c:forEach items="${listOfOrder}" var="orderList">
-			<c:set var="User" scope="session" value="${User}" />
-			<c:set var="componentName" scope="session" value="${componentName}" />
-<jsp:useBean id="component" class="com.onlineelectronicshop.daoImpl.ComponentDaoImpl"/>
 
-			<tr>
-			    <td>${orderList.orderid}</td>
-				<td>${User.userName}</td>
-				<td>${component.findComponent(orderList.componentId)}</td>
-				<td>${orderList.quantity}</td>
-				<td>${orderList.totalPrice}</td>
-				<td>${orderList.orderDate}</td>
-				<td><a href="CancelOrderServlet?orderId=${orderList.orderid}&refundprice=${orderList.totalPrice}">Cancel</a></td>
+		<tr>
+			<c:forEach items="${listOfOrder}" var="orderList">
+				<c:set var="User" scope="session" value="${User}" />
+				<c:set var="componentName" scope="session" value="${componentName}" />
+				<jsp:useBean id="component"
+					class="com.onlineelectronicshop.daoImpl.ComponentDaoImpl" />
 
-			</tr>
-		</c:forEach>
+				<tr>
+					<td>${orderList.orderid}</td>
+					<td>${User.userName}</td>
+					<td>${component.findComponent(orderList.componentId)}</td>
+					<td>${orderList.quantity}</td>
+					<td>${orderList.totalPrice}Rs</td>
+					<td>${orderList.orderDate}</td>
 
-</tr>
+					<td><a class="btn" onclick="myFunction()"
+						href="CancelOrderServlet?orderId=${orderList.orderid}&refundprice=${orderList.totalPrice}">Cancel</a></td>
+				</tr>
+			</c:forEach>
+
+		</tr>
 
 
-</table>
+	</table>
 
-<c:if test="${not empty sessionScope.cancel}">
-<h1>${sessionScope.cancel}</h1>
+	<c:if test="${not empty sessionScope.cancel}">
+		<h1>${sessionScope.cancel}</h1>
 
-</c:if>  
+	</c:if>
 
 </body>
 </html>

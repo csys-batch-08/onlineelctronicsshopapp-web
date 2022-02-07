@@ -86,7 +86,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		OrderDaoImpl orderDao=new OrderDaoImpl();			
 		Order order=new Order(compid,userId,quantity,totalPrice,address);
 		orderDao.insertOrder(order);		 
-	response.sendRedirect("OrderSuccess.jsp");
+	response.sendRedirect("orderSuccess.jsp");
 	 }
 	 else {
 		 response.getWriter().println("low balance");

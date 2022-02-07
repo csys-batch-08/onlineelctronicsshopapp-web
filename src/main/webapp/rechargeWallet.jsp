@@ -30,7 +30,7 @@
 
 body{
     
-    background-image: url("electronic new.jpg");
+    background-image: url("assets/images/electronic new.jpg");
     background-repeat:no repeat;
     background-size: cover;
    

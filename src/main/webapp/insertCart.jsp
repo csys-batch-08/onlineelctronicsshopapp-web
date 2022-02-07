@@ -20,23 +20,46 @@ border-collapse:collapse;
 
 body{
     
-    background-image: url("electronic new.jpg");
+    background-image: url("assests/images/electronic new.jpg");
     background-repeat:no repeat;
     background-size: cover;
    
     font-family: Cambria;
 }
-<!--<%//CartDaoImpl cartDao=new CartDaoImpl();
 
-//Cart cart=new Cart();
-//cartDao.insertCart(cart);
-%>-->
-<%//int productId=Integer.parseInt(request.getParameter("produId"));%>
-<%//int cartId1=Integer.parseInt(request.getParameter(""));%>
+.menu-bar {
+	background: white;
+	
+}
 
+.menu-bar ul {
+	display: inline-flex;
+	list-style: none;
+	color: #fff;
+}
+
+.menu-bar ul li a {
+	padding: 10px 10px;
+	font-size: 17px;
+	text-decoration:none;
+}
 </style>
 </head>
 <body>
+<nav>
+		<div class="menu-bar">
+			<ul>
+				<li><a href="viewHomePage.jsp">Home</a></li>
+				<li><a href="MyProfileServlet">My profile</a></li>
+                <li><a href="rechargeWallet.jsp">Wallet</a><li>
+                <li><a href="ShowOrderServlet">MyOrders</a></li>
+                <li><a href="CancelOrderRefundServlet">CancelOrder</a></li>  
+                <li><a href="contactUs.jsp">Contact Us</a></li>             
+    </ul>
+    </div>
+    <br>
+    </nav>	
+
 <c:set var="component" scope="session" value="${componentName}"/> 
  <c:set var="componentId" scope="session" value="${componentId}"/> 
  <c:set var="price" scope="session" value="${price}"/> 
@@ -52,7 +75,7 @@ body{
 <input type="number" value="${price}" name="price"><br>
 <br>
 <button type="submit">Submit</button>
-<span><a href="Home.jsp">Home</a></span>
+<span><a href="viewHomePage.jsp">Home</a></span>
 </center>
 </form>
 </body>

@@ -13,7 +13,7 @@
 
 <style>
 .menu-bar{
-    background:#5ab9ea;
+    background:#fff;
     text-align: center;
 }
 .menu-bar ul{
@@ -23,12 +23,12 @@
 }
 .menu-bar ul li
 {
-width: 300px;
-margin: 8px;
+width: 330px;
+margin: 1px;
 padding: 1px;
 }
 .menu-bar ul li a{
-padding: 8px 8px;
+padding: 4px 4px;
 font-size: 17px;
  text-decoration:none;
 }
@@ -124,8 +124,8 @@ input {
         <ul>
             <li><a href="viewHomePage.jsp">Home</a></li>
             <li><a href="rechargeWallet.jsp">wallet</a></li>
-            <li><a href="showComponents.jsp">Components</a></li>
-            <li><a href="contactUs.jsp">Contact Us</a>             
+            <li><a href="ShowComponentServlet">Components</a></li>
+            <li><a href="index.jsp">Logout</a></li>            
     </ul>
     </div>
     <br>
@@ -140,9 +140,8 @@ input {
 <h5>User name:${users.userName}</h5>
 <br>
 <h5>Email id:${users.emailId}</h5>
-
 <br>
-<h5>Wallet amount:${users.wallet}</h5>
+<h5>Wallet amount:${users.wallet}Rs</h5>
 
 <br>
 

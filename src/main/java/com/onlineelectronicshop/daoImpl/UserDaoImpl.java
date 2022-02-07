@@ -30,11 +30,15 @@ public class UserDaoImpl {
 			pstmt.setLong(4, user.getContactNumber());
 			pstmt.setString(5, user.getAddress());
 			pstmt.executeUpdate();
-			System.err.println("Value inserted Successfully");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Value not inserted in the table");
+			
+		}
+		finally {
+			
+				conUtil.closePreparedStatement(pstmt, con);
+			
 		}
 
 	}
@@ -44,18 +48,21 @@ public class UserDaoImpl {
 				
 		Connection con = ConnectionUtil.getDbConnection();
 		User user = null; 
-
+		ResultSet rs=null;
+		Statement st=null;
+		
 		try {
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(validateQuery);
+		  st = con.createStatement();
+			rs = st.executeQuery(validateQuery);
 			if (rs.next()) {
 				 
 				user = new User(rs.getInt(1),rs.getString(2),emailId, password, rs.getLong(5),rs.getString(6),rs.getString(7),rs.getDouble(8));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Statement error");
+		}
+		finally {
+			ConnectionUtil.closeStatement(st, con, rs);
 		}
 		return user;
 
@@ -65,35 +72,31 @@ public class UserDaoImpl {
 	public void update(String update) {
 		String updatequery = "update user_details set password=? where email_id=?";
 		Connection con = ConnectionUtil.getDbConnection();
-		System.out.println("connection get succesfully");
+		PreparedStatement pstmt=null;
 		try {
-			PreparedStatement pstmt = con.prepareStatement(updatequery);
+			pstmt = con.prepareStatement(updatequery);
 			pstmt.setString(1, update.split(",")[0]);
 			pstmt.setString(2, update.split(",")[1]);
 			int i = pstmt.executeUpdate();
-			System.out.println(i + "row updated");
 			pstmt.close();
 			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException e) {	
 			e.printStackTrace();
 		}
+		
 
 	}
 
 	public void deleteUser(String delete) {
 		String deleteQuery = "delete from user_details where email_id=?";
 		Connection con = ConnectionUtil.getDbConnection();
-		System.out.println("connection get successfully");
 		try {
 			PreparedStatement pstmt = con.prepareStatement(deleteQuery);
 			pstmt.setString(1, delete);
 			int i = pstmt.executeUpdate();
-			System.out.println(i + "row deleted");
 			pstmt.close();
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -102,34 +105,37 @@ public class UserDaoImpl {
 	public int findUserId(String emailId) {
 		String findUserId = "select user_id from user_details where email_id='" +emailId + "'";
 		Connection con = ConnectionUtil.getDbConnection();
-		Statement stmt;
+		Statement stmt=null;
+		ResultSet rs=null;
 		 int userId=0 ;
 		try {
 			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(findUserId);
+			rs = stmt.executeQuery(findUserId);
 			if (rs.next()) {
 
 				userId = rs.getInt(1);
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtil.closeStatement(stmt, con, rs);
 		}
 		return userId;
 
 	}
 
-	public static List<User> showAllUser() {
+	public  List<User> showAllUser() {
 		List<User> UsersList = new ArrayList<User>();
 
 		String showQuery = "select *from user_details where role='user'";
 		Connection con = ConnectionUtil.getDbConnection();
-		System.out.println("connection get successfully");
-		Statement stmt;
+		Statement stmt=null;
+		ResultSet rs=null;
 		try {
 			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(showQuery);
+			rs = stmt.executeQuery(showQuery);
 			while (rs.next()) {
 
 				UsersList.add(
@@ -138,29 +144,38 @@ public class UserDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		finally {
+			ConnectionUtil.closeStatement(stmt, con, rs);
+		}
+		
 		return UsersList;
-	}
 
+		
+	}
+	
+
+	
 	public User findUser(int userId) {
 		String findUser = "select * from user_details where USER_ID=?";
 		Connection con = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt;
+		PreparedStatement pstmt=null;
 		User user = null;
+		ResultSet rs=null;
 		try {
 			pstmt = con.prepareStatement(findUser);
 			pstmt.setInt(1, userId);
-		
-
-			ResultSet rs = pstmt.executeQuery();
+		    rs = pstmt.executeQuery();
 			while (rs.next()) {
-				System.out.println("User ID ----"+rs.getInt(1));
+				
 				user = new User( rs.getString(2), rs.getString(3), rs.getString(4), rs.getLong(5),
 						rs.getString(6));
 			}
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtil.closePreparedStatement(pstmt, con, rs);
 		}
 		return user;
 
@@ -169,11 +184,12 @@ public class UserDaoImpl {
 		List<User> UsersList = new ArrayList<User>();
 		String profile="select user_name,email_id,password,contact_number,address,wallet from user_details where user_id=?";
 		Connection con = ConnectionUtil.getDbConnection();
+		PreparedStatement pstm=null;
+		ResultSet rs=null;
 		try {
-			PreparedStatement pstm = con.prepareStatement(profile);
+			pstm = con.prepareStatement(profile);
 			pstm.setInt(1, userId);
-			
-			ResultSet rs = pstm.executeQuery();
+			rs = pstm.executeQuery();
 			while(rs.next()) {
 				User user=new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getLong(4),rs.getString(5),rs.getString(6),rs.getInt(8));
 				UsersList.add(user);
@@ -181,6 +197,9 @@ public class UserDaoImpl {
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
+		finally {
+			ConnectionUtil.closePreparedStatement(pstm, con, rs);
+		}
 	
 return UsersList;
 }

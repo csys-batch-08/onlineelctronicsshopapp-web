@@ -2,6 +2,7 @@
 <%@page import="com.onlineelectronicshop.daoImpl.OrderDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 
 body{
     
-    background-image: url("electronic new.jpg");
+    background-image: url("assests/images/electronic new.jpg");
     background-repeat:no repeat;
     background-size: cover;
    
@@ -91,8 +92,8 @@ font-size: 17px;
 
 <tr>
 <th>Order id</th>
+<th>componentId</th>
 <th>User id</th>
-<th>Component id</th>
 <th>Quantity</th>
 <th>Total price</th>
 <th>Address</th>
@@ -100,21 +101,19 @@ font-size: 17px;
 <th>Order status</th>
 <th>Update status</th>
 </tr>
-<%OrderDaoImpl orderDao=new OrderDaoImpl();	
-ResultSet rs=orderDao.orderList();
-while(rs.next()){
-%>
+<c:forEach items="${listOrder}" var="orders">
 <tr>
-<td><%=rs.getInt(1) %></td>
-<td><%=rs.getInt(2) %></td>
-<td><%=rs.getInt(3) %></td>
-<td><%=rs.getInt(4) %></td>
-<td><%=rs.getDouble(5)%></td>
-<td><%=rs.getString(6) %></td>
-<td><%=rs.getDate(7) %></td>
-<td><%=rs.getString(8) %></td>
-<td><a href="ChangeOrderStatusServelt?orderid=<%=rs.getInt(1) %>">UpdateStatus</a></td></tr>
-<%} %>
+<td>${orders.orderid}</td>
+<td>${orders.componentId}</td>
+<td>${orders.userId}</td>
+<td>${orders.quantity}</td>
+<td>${orders.totalPrice}</td>
+<td>${orders.address}</td>
+<td>${orders.orderDate}</td>
+<td>${orders.orderStatus}</td>
+<td><a href="ChangeOrderStatusServelt?orderid=${orders.orderid}">UpdateStatus</a></td>
+</tr>
+</c:forEach>
 </table>
 </form>
 </body>

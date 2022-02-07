@@ -17,38 +17,36 @@ import com.onlineelectronicshop.daoImpl.UserDaoImpl;
 import com.onlineelectronicshop.model.Order;
 import com.onlineelectronicshop.model.User;
 
-
 @WebServlet("/CancelOrderRefundServlet")
 public class CancelOrderRefundServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public CancelOrderRefundServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CancelOrderRefundServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		OrderDaoImpl orderDao=new OrderDaoImpl();	
-		int userId=(int) session.getAttribute("userId");
-		UserDaoImpl userDao=new UserDaoImpl();
-		ComponentDaoImpl comDao=new ComponentDaoImpl();
-		
-		List<Order> orderList=orderDao.showOrder(userId);
+		HttpSession session = request.getSession();
+		OrderDaoImpl orderDao = new OrderDaoImpl();
+		int userId = (int) session.getAttribute("userId");
+		UserDaoImpl userDao = new UserDaoImpl();
+		ComponentDaoImpl comDao = new ComponentDaoImpl();
+
+		List<Order> orderList = orderDao.showOrder(userId);
 		User user = userDao.findUser(userId);
-		request.setAttribute("listOfOrder", orderList);	
+		request.setAttribute("listOfOrder", orderList);
 		request.setAttribute("User", user);
 		RequestDispatcher requestDispatch = request.getRequestDispatcher("cancelOrder.jsp");
 		requestDispatch.forward(request, response);
-		System.out.println(orderList);			
+
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

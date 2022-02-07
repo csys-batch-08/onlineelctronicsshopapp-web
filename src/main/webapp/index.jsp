@@ -1,47 +1,73 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+{
+    padding:0;
+    margin:0;
+    
+}
+body{
+    
+    background-image: url('assests/images/home background.jpg');
+    background-repeat:no repeat;
+    background-size: cover;
+   
+    font-family: Cambria;
+}
+.menu-bar{
+    background:#5ab9ea;
+    text-align: center;
+}
+.menu-bar ul{
+    display:inline-flex;
+    list-style: none;
+    color: #fff;
+}
+.menu-bar ul li
+{
+width: 150px;
+margin: 8px;
+padding: 1px;
+}
+.menu-bar ul li a{
+padding: 8px 8px;
+font-size: 17px;
+ text-decoration:none;
+}
+
+.button
+{
+    background-color: rgba(218, 19, 19, 0.555);
+    text-decoration: none;
+    display: -moz-inline-box;
+    padding: 5px 5px;
+    
+}
+</style>
 <meta charset="ISO-8859-1">
-<title>Register</title>
-<link rel="stylesheet" href="register.css">
+<title>Home page</title>
+ 
 </head>
 <body>
-<form action="RegisterServlet" class="form" method="post">
-        <div class="registerbox">
-        <img src="avatar.png" class="avatar">
-        <h1>Register Here</h1>
-        <div class="input-group">
-            <label for="registername">User Name</label>
-            <input type="text" name="registername" id="registername" placeholder="your name"  pattern="[A-Z][a-z]{3,}"required>
-        </div>
-        <div class="input-group">
-            <label for="registeremail">Email</label>
-            <input type="text" name="registeremail" id="registeremail" placeholder="abc@gmail.com" pattern="[a-z0-9]+[@][a-z]+[.]+[a-z]+{8,15}" required>
-            </div>
-        <div class="input-group">
-            <label for="registerpassword">Password</label>
-            <input type="password" name="registerpassword" id="registerpassword" required>  
-        </div>
-        <div class="input-group">
-            <label for="registercontactnumber">Contact Number</label>
-            <input type="text" name="registercontactnumber" id="registercontactnumber" required>
-            </div>
-            <div class="input-group">
-                <label for="registeraddress">Address</label>
-                <input type="text" name="registeraddress" id="registeraddress">
-                </div>
-        <input type="submit" value="submit" class="submit-btn">
-         </div>
-    </form>
-   
-        
-</body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<center>
+<h3 style=color:white>Online electronic shop</h3>
+</center>
+<nav>
+<div class="menu-bar">
+        <ul>
+            <li class="active">Home</li>
+            <li><a href="register.jsp">Register</a></li>
+            <li><a href="login.jsp"><i class="fa fa-fw fa-user"></i>Login</a></li>
+            <li><a href="contactUs.jsp">Contact Us</a>
+            
+                  
+    </ul>
+    </div>
+    <br>
+    </nav>
+    <p style=color:white>Here's a list of all components in stock,followed by a quick guide to buying new electronic components.</p>
 </html>
-
-
-
-
-

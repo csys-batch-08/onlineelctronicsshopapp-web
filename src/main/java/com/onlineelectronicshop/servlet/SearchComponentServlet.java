@@ -53,7 +53,7 @@ public class SearchComponentServlet extends HttpServlet {
 		HttpSession session=request.getSession();
 		request.setAttribute("list",ShowComponent);
 		System.out.println(ShowComponent);
-		RequestDispatcher requestDispatch=request.getRequestDispatcher("SearchComponts.jsp");
+		RequestDispatcher requestDispatch=request.getRequestDispatcher("searchComponents.jsp");
 		requestDispatch.forward(request, response);
 	}
 

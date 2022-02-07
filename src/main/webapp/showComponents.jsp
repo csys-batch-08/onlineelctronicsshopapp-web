@@ -29,12 +29,7 @@ margin
     
 
 }
-body {
-	background-image: url("home background.jpg");
-	background-repeat: no repeat;
-	background-size: cover;
-	font-family: Cambria;
-}
+
 
 .menu-bar {
 	background: white;
@@ -53,37 +48,39 @@ body {
 	text-decoration:none;
 }
 
-.button {
-	background-color: rgba(218, 19, 19, 0.555);
-	text-decoration: none;
-	display: -moz-inline-box;
-	padding: 5px 5px;
-}
-.btn{
-background-color:#00061a;
-	text-decoration: none;
-	display: -moz-inline-box;
-	padding: 5px 5px;
-     text-color:#fff;
-
+.card {
+  width: 500px;
+  margin: auto;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  font-family: Roboto;
 }
 
+
+
+a.btn {
+  text-decoration: none;
+  font-size: 18px;
+  background-color: blue;
+  color: white;
+  display: block;
+  padding: 3px 5px;
+  margin-bottom: 10px;
+  width: 30%;
+  border-radius: 0.5em;
+}
 
 search{
 margin-left:300px;
-
-
-
 }
 
+
 body {
-	background-image: url("electronic new.jpg");
+	background-image: url("assests/images/website-banner-1.jpg");
 	background-repeat: no repeat;
 	background-size: cover;
 	font-family: Cambria;
 }
-
-
 </style>
 </head>
 <body>
@@ -91,10 +88,10 @@ body {
 		<div class="menu-bar">
 			<ul>
 				<li><a href="viewHomePage.jsp">Home</a></li>
-				<li><a href="MyProfile.jsp">My profile</a></li>
+				<li><a href="MyProfileServlet">My profile</a></li>
                 <li><a href="rechargeWallet.jsp">Wallet</a><li>
-                <li><a href="MyOrders.jsp">MyOrders</a></li>
-                <li><a href="cancelOrder.jsp">CancelOrder</a></li>  
+                <li><a href="ShowOrderServlet">MyOrders</a></li>
+                <li><a href="CancelOrderRefundServlet">CancelOrder</a></li>  
                 <li><a href="contactUs.jsp">Contact Us</a></li>             
     </ul>
     </div>
@@ -110,29 +107,54 @@ body {
 	<input style="float:right;" type="submit" value="search">
 	</form>
 		<br>
-	<form>
-		<table id="components">   
+	
+		 <table>
+		<caption></caption>
+		<tbody>
 		
+		<th id="tableHead"></th>
+		<tr>
+		<c:set var="count" value="1" />
 <c:forEach items="${showComponent}" var="component">
-
-			
+            <td>
+			<table id="components">
+			<caption></caption>
+			<tbody>
 			<tr>
-				<td><img alter="#alter" src="images1/${component.image}"
+			<th id="tableHead"></th>
+			    
+				<td><img alter="#alter" src="assests/images/${component.image}"
 					width="200" height="200"><br>
 					
 				<span style="visibility:hidden;">${component.componentId}</span><br><br>
+				
 				Component Name:${component.componentName}<br><br>
 				Category Name:${ component.categoryName}<br><br>
 				Description:${component.description}<br><br>
-				Price:${component.price}<br><br>
-				<a class="btn" href="CartServlet?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">AddToCart</a>&nbsp;
-				<a class="btn" href="ProceedBuyServlet?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">Buy</a>&nbsp;
+				Price:${component.price}Rs<br><br>
+				<a class="btn" href="CartServlet?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">AddToCart</a>
+				<a class="btn" href="ProceedBuyServlet?componentId=${component.componentId}&compantName=${component.componentName}&price=${component.price}">Buy</a>
+				
+                
+				</tr>
+				</tbody>
+				</table>
+				
+				</td>
+				<c:choose>
+						<c:when test="${count==2}">
+							<c:set var="count" value="1" />
+							</tr>
+			                <tr>
+		  
+						</c:when>
+				<c:otherwise>
+					<c:set var="count" value="${count+1}" />
+				</c:otherwise>
+				</c:choose>
+                </td>	
+				</c:forEach>
 				<br>
-				</td>		
-			</tr>
-			</c:forEach>
-			
-	</table>
-	</form>
+					</table>
 </body>
 </html>

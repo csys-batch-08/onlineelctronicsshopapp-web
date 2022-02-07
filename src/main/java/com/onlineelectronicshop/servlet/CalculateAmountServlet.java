@@ -41,13 +41,13 @@ public class CalculateAmountServlet extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			
-			Date fromdate = sdf.parse(request.getParameter("fromdate"));
+			Date fromDate = sdf.parse(request.getParameter("fromdate"));
 			
-			Date todate = sdf.parse(request.getParameter("todate"));
+			Date toDate = sdf.parse(request.getParameter("todate"));
 			HttpSession session=request.getSession();
-			session.setAttribute("FromDate", fromdate);
-			session.setAttribute("ToDate", todate);
-			response.sendRedirect("Calculation.jsp");
+			session.setAttribute("FromDate", fromDate);
+			session.setAttribute("ToDate", toDate);
+			response.sendRedirect("ShowCalculateAmountServlet");
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

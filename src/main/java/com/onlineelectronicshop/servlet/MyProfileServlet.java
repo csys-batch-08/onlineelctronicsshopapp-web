@@ -1,6 +1,7 @@
 package com.onlineelectronicshop.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -39,9 +40,11 @@ public class MyProfileServlet extends HttpServlet {
 				user=user1;
 			}
 		}
-		request.setAttribute("listOfUser",user);
+		List<User> newUser= new ArrayList<User>();
+		newUser.add(user);
+		request.setAttribute("listOfUser",newUser);
 		
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("MyProfile.jsp");
+		RequestDispatcher requestDispatch = request.getRequestDispatcher("myProfile.jsp");
 		requestDispatch.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

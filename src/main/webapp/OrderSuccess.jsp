@@ -10,22 +10,51 @@
 
 body{
     
-    background-image: url("electronic new.jpg");
+    background-image: url("assests/images/electronic new.jpg");
     background-repeat:no repeat;
     background-size: cover;
    
     font-family: Cambria;
 }
+.menu-bar {
+	background: white;
+	
+}
 
+.menu-bar ul {
+	display: inline-flex;
+	list-style: none;
+	color: #fff;
+}
+
+.menu-bar ul li a {
+	padding: 10px 10px;
+	font-size: 17px;
+	text-decoration:none;
+}
 </style>
 </head>
 <body>
+<nav>
+		<div class="menu-bar">
+			<ul>
+				<li><a href="viewHomePage.jsp">Home</a></li>
+				<li><a href="MyProfileServlet">My profile</a></li>
+                <li><a href="rechargeWallet.jsp">Wallet</a><li>
+                <li><a href="ShowOrderServlet">MyOrders</a></li>
+                <li><a href="cancelOrder.jsp">CancelOrder</a></li>  
+                <li><a href="contactUs.jsp">Contact Us</a></li>  
+                <li><a href="InvoiceServlet">View Bill</a></li>           
+    </ul>
+    </div>
+    <br>
+    </nav>	
 <form action="ShowOrderServlet">
 
 
 <center><h1>Order success! Thank You!!</h1>
 <h2><i>Your Payment Is Debited from Your Wallet</i></h2>
-<button type="submit">click to check order</button><br>
+
 
 
 <c:set var="Price" scope="session" value="${totalprice}"/> 
@@ -36,10 +65,7 @@ body{
 
 <h2><i> Your Revised Wallet Amount : ${wallet}</i></h2>
 
-<span><a href="invoice.jsp">View Bill</a></span>
-
-<span><a href="viewHomePage.jsp">home</a></span>
-
+<button type="submit">click to check order</button><br>
 </form>
 </body>
 </html>

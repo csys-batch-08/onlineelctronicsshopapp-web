@@ -20,15 +20,14 @@ public class updateComponentServelt extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ComponentDaoImpl comDao=new ComponentDaoImpl();
-		//System.out.println("hello");
+		System.out.println("helo");
 		HttpSession session=request.getSession();
-		double price=Double.parseDouble(request.getParameter("price"));
-		//System.out.println(price);
-		String comName=request.getParameter("componentName");
-		//System.out.println(comId1);
-		//System.out.println("asdfg"+comId1);
+		String componentName=request.getParameter("component");
+		System.out.println(componentName);
+		double newPrice2=Double.parseDouble(request.getParameter("newPrice"));
+		System.out.println(newPrice2);
 		try {
-			comDao.updateComponent(price, comName);
+			comDao.updateComponent(newPrice2, componentName);
 			response.sendRedirect("admin.jsp");
 		} catch (ClassNotFoundException e){
 			e.printStackTrace();

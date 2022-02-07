@@ -16,7 +16,7 @@
 
 body{
     
-    background-image: url("electronic new.jpg");
+    background-image: url("assests/images/electronic new.jpg");
     background-repeat:no repeat;
     background-size: cover;
    
@@ -53,10 +53,5 @@ body{
 <br>
 <button type="submit">Buy</button>
 </form>
-
-
-
 </body>
 </html>
-
-

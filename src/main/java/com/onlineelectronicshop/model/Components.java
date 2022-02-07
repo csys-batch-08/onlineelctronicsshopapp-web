@@ -11,8 +11,6 @@ package com.onlineelectronicshop.model;
 		private String available;
 		private  String image;
 		
-		
-		
 		public String getImage() {
 			return image;
 		}
@@ -105,6 +103,16 @@ package com.onlineelectronicshop.model;
 			this.price = price2;
 			this.available=available2;
 			this.image=image2;
+			// TODO Auto-generated constructor stub
+		}
+		public Components(int int1, String string, String string2, String string3, double double1) {
+			this.componentId = int1;
+			this.componentName = string;
+			this.categoryName = string2;
+			this.description = string3;
+			this.price = double1;
+			
+			
 			// TODO Auto-generated constructor stub
 		}
 		@Override

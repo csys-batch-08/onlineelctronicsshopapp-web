@@ -43,7 +43,7 @@ public class ShowOrderServlet extends HttpServlet {
 		request.setAttribute("listOfOrder", orderList);
 		request.setAttribute("UserName", user);
 		
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("MyOrders.jsp");
+		RequestDispatcher requestDispatch = request.getRequestDispatcher("myOrder.jsp");
 		requestDispatch.forward(request, response);
 	}
 
