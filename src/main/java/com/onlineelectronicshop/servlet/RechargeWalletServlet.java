@@ -36,11 +36,7 @@ public class RechargeWalletServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("CurentUser");
 		int userId = user.getUserid();
-		try {
-			walletDao.updateWalletbalance(amount, userId);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		walletDao.updateWalletbalance(amount, userId);
 		doGet(request, response);
 	}
 

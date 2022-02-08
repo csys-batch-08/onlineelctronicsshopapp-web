@@ -21,14 +21,8 @@ public class updateComponentServelt extends HttpServlet {
 		HttpSession session=request.getSession();
 		String componentName=request.getParameter("component");
 		double newPrice2=Double.parseDouble(request.getParameter("newPrice"));
-		try {
-			comDao.updateComponent(newPrice2, componentName);
-			response.sendRedirect("admin.jsp");
-		} catch (ClassNotFoundException e){
-			e.printStackTrace();
-		} catch (SQLException e){
-			e.printStackTrace();
-		}
+		comDao.updateComponent(newPrice2, componentName);
+		response.sendRedirect("admin.jsp");
 	
 	}
 	
