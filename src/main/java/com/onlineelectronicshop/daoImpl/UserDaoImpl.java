@@ -87,28 +87,30 @@ public class UserDaoImpl {
 			pstmt.setString(1, update.split(",")[0]);
 			pstmt.setString(2, update.split(",")[1]);
 			int i = pstmt.executeUpdate();
-			pstmt.close();
-			con.close();
+			
 		} catch (SQLException e) {	
 			e.printStackTrace();
 		}
-		
+		finally {
+			ConnectionUtil.closePreparedStatement(pstmt, con);
+		}
 
 	}
 
 	public void deleteUser(String delete) {
 		String deleteQuery = "delete from user_details where email_id=?";
 		Connection con = ConnectionUtil.getDbConnection();
+		PreparedStatement pstmt=null;
 		try {
-			PreparedStatement pstmt = con.prepareStatement(deleteQuery);
+			pstmt = con.prepareStatement(deleteQuery);
 			pstmt.setString(1, delete);
 			int i = pstmt.executeUpdate();
-			pstmt.close();
-			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+finally {
+	ConnectionUtil.closePreparedStatement(pstmt, con);
+}
 	}
 
 	public int findUserId(String emailId) {

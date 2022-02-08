@@ -37,27 +37,43 @@ public class WalletDaoImpl {
 		return -1;
 	}
 
-	public int updateWallet(Double amount, int userId) throws SQLException {
+	public int updateWallet(Double amount, int userId){
 		Connection con = ConnectionUtil.getDbConnection();
 		String query = "update user_details set wallet=? where user_id=?";
-		PreparedStatement pstmt = con.prepareStatement(query);
-		pstmt.setDouble(1, amount);
-		pstmt.setInt(2, userId);
-		int result = pstmt.executeUpdate();
-		pstmt.executeUpdate("commit");
+		PreparedStatement pstmt =null;
+		int result=0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDouble(1, amount);
+			pstmt.setInt(2, userId);
+			result = pstmt.executeUpdate();
+			pstmt.executeUpdate("commit");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtil.closePreparedStatement(pstmt, con);
+		}
 		return result;
 
 	}
 
-	public void updateWalletbalance(Double amount, int userId) throws SQLException {
+	public void updateWalletbalance(Double amount, int userId){
 		Connection con = ConnectionUtil.getDbConnection();
 		String query = "update user_details set wallet=wallet+? where user_id=?";
-		PreparedStatement pstmt = con.prepareStatement(query);
-		pstmt.setDouble(1, amount);
-		pstmt.setInt(2, userId);
-		int result = pstmt.executeUpdate();
-		pstmt.executeUpdate("commit");
-
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDouble(1, amount);
+			pstmt.setInt(2, userId);
+			int result = pstmt.executeUpdate();
+			pstmt.executeUpdate("commit");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+finally {
+	ConnectionUtil.closePreparedStatement(pstmt, con);
+}
 	}
 
 	public boolean refundWallet(Double amount, User user) {
@@ -73,6 +89,9 @@ public class WalletDaoImpl {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtil.closeStatement(stmt, con);
 		}
 		return flag;
 

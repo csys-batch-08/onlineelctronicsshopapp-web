@@ -181,21 +181,30 @@ public class ComponentDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			ConnectionUtil.closePreparedStatement(pstmt, con, rs);
+		}
 		return name;
 
 	}
 
-	public void updateComponent(Double price, String componentName) throws ClassNotFoundException, SQLException {
+	public void updateComponent(Double price, String componentName){
 		String updateQuery = "update component_info set total_price=?  where component_name=?";
-
+		PreparedStatement pstmt=null;
 		Connection con = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = con.prepareStatement(updateQuery);
-		pstmt.setDouble(1, price);
-		pstmt.setString(2, componentName);
+		try {
+			pstmt = con.prepareStatement(updateQuery);
+			pstmt.setDouble(1, price);
+			pstmt.setString(2, componentName);
 
-		int i = pstmt.executeUpdate();
-		pstmt.close();
-		con.close();
+			int i = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtil.closePreparedStatement(pstmt, con);
+		}
+		
 	}
 
 	public void updateStatus(int ComponentId) {

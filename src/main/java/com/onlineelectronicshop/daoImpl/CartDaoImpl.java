@@ -43,16 +43,21 @@ public class CartDaoImpl {
 
 	}
 
-	public void updateCart(String updateCart) throws ClassNotFoundException, SQLException {
+	public void updateCart(String updateCart){
 		String updateQuery = "update cart set quantity =? where item_id=?";
 
 		Connection con = ConnectionUtil.getDbConnection();
-		PreparedStatement pstmt = con.prepareStatement(updateQuery);
-		pstmt.setInt(1, Integer.parseInt(updateCart.split(",")[0]));
-		pstmt.setInt(2, Integer.parseInt(updateCart.split(",")[1]));
-		int i = pstmt.executeUpdate();
-		pstmt.close();
-		con.close();
+		try {
+			PreparedStatement pstmt = con.prepareStatement(updateQuery);
+			pstmt.setInt(1, Integer.parseInt(updateCart.split(",")[0]));
+			pstmt.setInt(2, Integer.parseInt(updateCart.split(",")[1]));
+			int i = pstmt.executeUpdate();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public int deleteCart(int itemId, int userId) throws SQLException {
