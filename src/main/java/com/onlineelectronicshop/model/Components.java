@@ -3,7 +3,6 @@ package com.onlineelectronicshop.model;
 	import java.util.Objects;
 	public class Components {
 		private int componentId;
-
 		private String componentName;
 		private String categoryName;
 		private String description;

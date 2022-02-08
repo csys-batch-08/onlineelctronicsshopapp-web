@@ -32,7 +32,6 @@ public class ShowOrderServlet extends HttpServlet {
 		List<Order> orderList = orderDao.showOrder(userId);
 		for (int i = 0; i < orderList.size(); i++) {
 			Order order = orderList.get(i);
-
 			componentId = order.getComponentId();
 		}
 		String componentName = comDao.findComponent(componentId);

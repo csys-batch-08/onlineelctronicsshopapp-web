@@ -2,12 +2,11 @@
     pageEncoding="ISO-8859-1"%>
   <%@  page import="com.onlineelectronicshop.daoImpl.*"%>
   <%@ page import="com.onlineelectronicshop.model.*"%>
-  
   <%@ page import="com.onlineelectronicshop.model.Order" %>
   <%@ page import="java.util.List" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>cart</title>

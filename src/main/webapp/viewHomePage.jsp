@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>view home</title>
@@ -77,11 +77,11 @@ body {
 <div class="sidebar">
   <a class="active" href="index.jsp">Home</a>
   <a href="ShowComponentServlet">Components</a>
- <a href="MyProfileServlet"><i class="fa fa-fw fa-user"></i>My profile</a>
- <a href="rechargeWallet.jsp"><i class="fas fa-wallet"></i> Wallet</a>
+ <a href="MyProfileServlet"><em class="fa fa-fw fa-user"></em>My profile</a>
+ <a href="rechargeWallet.jsp"><em class="fas fa-wallet"></em> Wallet</a>
  <a href="ShowOrderServlet">MyOrders</a>
  <a href="CancelOrderRefundServlet">CancelOrder</a>
- <a href="index.jsp"><i class="fa fa-fw fa-user"></i>Logout</a>
+ <a href="index.jsp"><em class="fa fa-fw fa-user"></em>Logout</a>
 </div>
 </body>
 </html>

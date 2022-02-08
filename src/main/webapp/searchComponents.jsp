@@ -5,7 +5,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>Search components</title>
@@ -93,11 +93,12 @@ background-color:#00061a;
 
 <c:forEach items="${list}" var="search" >
 <tr>
+<th></th>
 <td>
 
 <div class="product-right">
 
-<img alter="#alter" src="assests/images/${search.image}" width="200"height="200"><br>
+<img alt="searchimage" src="assests/images/${search.image}" width="200"height="200"><br>
 </div>
 
 <span style="visibility:hidden;">${search.componentId}</span><br><br>

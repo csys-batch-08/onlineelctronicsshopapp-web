@@ -9,7 +9,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>view components</title>
@@ -66,7 +66,7 @@ body {
 			</tr>
 			<c:forEach items="${componentList}" var="componentList">
 				<tr>
-					<td><img alter="#alter"
+					<td><img alt="#componentimage"
 						src="assests/images/${componentList.image}" width="200"
 						height="200"></td>
 					<td>${componentList.componentId}</td>

@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>My Orders</title>
@@ -78,7 +78,6 @@ table, td, tr {
 				<td>${orderList.componentName}</td>
 				<td>${orderList.quantity}</td>
 				<td>${orderList.totalPrice}</td>
-
 				<td><fmt:parseDate value="${orderList.orderDate}"
 						pattern="yyyy-MM-dd" var="orderDate" type="date" /> <fmt:formatDate
 						pattern="dd-MM-yyyy" value="${orderDate}" /></td>

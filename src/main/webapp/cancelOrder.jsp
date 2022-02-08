@@ -7,8 +7,10 @@
 <%@ page import="java.time.LocalDate"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>Cancel order</title>
@@ -103,36 +105,30 @@ table, td, tr {
 		</div>
 		<br>
 	</nav>
-
-
-	<h1>My Orders</h1>
 	<table id="order">
 		<tr>
-			<th>orderid</th>
-			<th>User Name</th>
-			<th>Component Name</th>
+			<th>orderId</th>
+			<th>UserName</th>
+			<th>ComponentName</th>
 			<th>Quantity</th>
 			<th>Price</th>
 			<th>Order Date</th>
 			<th>Action</th>
 		</tr>
-
-
-
 		<tr>
 			<c:forEach items="${listOfOrder}" var="orderList">
 				<c:set var="User" scope="session" value="${User}" />
 				<c:set var="componentName" scope="session" value="${componentName}" />
-				<jsp:useBean id="component"
-					class="com.onlineelectronicshop.daoImpl.ComponentDaoImpl" />
-
 				<tr>
 					<td>${orderList.orderid}</td>
 					<td>${User.userName}</td>
-					<td>${component.findComponent(orderList.componentId)}</td>
+					<td>${orderList.componentName}</td>
 					<td>${orderList.quantity}</td>
 					<td>${orderList.totalPrice}Rs</td>
-					<td>${orderList.orderDate}</td>
+					
+					<td><fmt:parseDate value="${orderList.orderDate}"
+						pattern="yyyy-MM-dd" var="orderDatecancel" type="date" /> <fmt:formatDate
+						pattern="dd-MM-yyyy" value="${orderDatecancel}" /></td>
 
 					<td><a class="btn" onclick="myFunction()"
 						href="CancelOrderServlet?orderId=${orderList.orderid}&refundprice=${orderList.totalPrice}">Cancel</a></td>
@@ -140,8 +136,6 @@ table, td, tr {
 			</c:forEach>
 
 		</tr>
-
-
 	</table>
 
 	<c:if test="${not empty sessionScope.cancel}">

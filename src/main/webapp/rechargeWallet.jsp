@@ -3,7 +3,7 @@
       
     
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>Recharge wallet</title>

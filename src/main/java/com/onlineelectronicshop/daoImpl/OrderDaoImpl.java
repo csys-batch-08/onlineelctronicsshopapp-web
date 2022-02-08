@@ -56,7 +56,8 @@ public class OrderDaoImpl {
 
 		Statement stmt = null;
 		ResultSet rs = null;
-		String query = "select order_id,user_id,component_id,quantity,total_price,address,order_date,order_status from orders_table where order_status='Not delivered' and user_id='"
+		String query = "select order_id,user_id,component_id,quantity,total_price,address,order_date,order_status from orders_table where order_status='Not delivered' "
+				+ "and user_id='"
 				+ userId + "'order by order_date desc";
 		try {
 			stmt = con.createStatement();

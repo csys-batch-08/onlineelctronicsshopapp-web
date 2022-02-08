@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -66,7 +66,7 @@ body {
 			<ul>
 				<li class="active">Home</li>
 				<li><a href="register.jsp">Register</a></li>
-				<li><a href="login.jsp"><i class="fa fa-fw fa-user"></i>Login</a></li>
+				<li><a href="login.jsp"><em class="fa fa-fw fa-user"></em>Login</a></li>
 				<li><a href="contactUs.jsp">Contact Us</a>
 			</ul>
 		</div>

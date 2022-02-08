@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>OrderSuccess</title>
@@ -57,17 +57,15 @@ margin-left: 500px;
 <div id="ordersuccess">
 
 <h1>Order success! Thank You!!</h1>
-<h2><i>Your Payment Is Debited from Your Wallet</i></h2>
-
-
+<h2><em>Your Payment Is Debited from Your Wallet</em></h2>
 
 <c:set var="Price" scope="session" value="${totalprice}"/> 
 <c:set var="wallet" scope="session" value="${wallbal}"/> 
 
-<h2><i>Your Total Amount is : ${Price}</i></h2>
+<h2><em>Your Total Amount is : ${Price}</em></h2>
 
 
-<h2><i> Your Revised Wallet Amount : ${wallet}</i></h2>
+<h2><em> Your Revised Wallet Amount : ${wallet}</em></h2>
 
 <button type="submit">click to check order</button><br>
 </div>

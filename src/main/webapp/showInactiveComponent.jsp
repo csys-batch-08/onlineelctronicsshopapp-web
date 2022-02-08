@@ -9,7 +9,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>Inactive component</title>
@@ -61,7 +61,7 @@ body {
 			</tr>
 			<c:forEach items="${InactivecomponentList}" var="Inactivecomponent">
 				<tr>
-					<td><img alter="#alter"
+					<td><img alt="#inactivecoponent"
 						src="assests/images/${Inactivecomponent.image}" width="200"
 						height="200"></td>
 					<td>${Inactivecomponent.componentId}</td>
