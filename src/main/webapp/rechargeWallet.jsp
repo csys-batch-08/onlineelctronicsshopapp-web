@@ -30,7 +30,7 @@
 
 body{
     
-    background-image: url("assets/images/electronic new.jpg");
+    background-image: url("assests/images/electronic new.jpg");
     background-repeat:no repeat;
     background-size: cover;
    
@@ -60,18 +60,20 @@ margin-left: 500px;
     </div>
     <br>
     </nav>	
-<div id="wallet">
+
 <form action="RechargeWalletServlet" method="post">
-<fieldset>
+<div id="wallet">
 <h1>Recharge your wallet</h1>
+
  
          <label for="Amount">Amount:</label><br>
          <input type="text" name="wallbal" id="wallbal" placeholder="Enter Amount" Pattern="[1-9][0-9]+" maxlength="3" min="0"><br><br>
         <button type="submit">Recharge Wallet</button>
              
-    </fieldset>
+    
     <br>
-    </form>
     </div>
+    </form>
+    
 </body>
 </html>

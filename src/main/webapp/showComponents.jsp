@@ -15,18 +15,8 @@
 
 <style>
 {
-padding
-:
-0
-;
-
-    
-margin
-:
-0
-;
-
-    
+padding:0;
+margin:0;    
 
 }
 
@@ -97,8 +87,7 @@ body {
     </div>
     <br>
     </nav>	
-				<!--  <li class="example"><input type="text" placeholder="Search.." name="components"></li>
-            <li><a href="SearchComponts.jsp">search</a></li> -->
+				
 
 <br>
 	<form action="SearchComponentServlet">

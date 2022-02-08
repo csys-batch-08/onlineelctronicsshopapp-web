@@ -20,7 +20,6 @@
             <p>Password</p>
             <input type="Password" name="loginpassword" placeholder="Enter Password" required>
             <input type="submit" name="login" value="Login"><br>
-            <a href="#">Forget your Password?</a><br>
             <a href="index.jsp">Don't have account?</a>
             </div>
         </form>

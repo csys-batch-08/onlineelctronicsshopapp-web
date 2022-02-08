@@ -83,7 +83,6 @@ public class User {
 	
 	public User(String userName, String emailId, String password, Long contactNumber, String address,String role,double wallet) {
 		super();
-		this.userid=userid;
 		this.userName = userName;
 		this.emailId = emailId;
 		this.password = password;

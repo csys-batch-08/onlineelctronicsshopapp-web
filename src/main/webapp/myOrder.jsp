@@ -54,7 +54,6 @@ table, td, tr {
 				<li><a href="ShowComponentServlet">Components</a></li>
 				<li><a href="MyProfileServlet">My profile</a></li>
 				<li><a href="rechargeWallet.jsp">Wallet</a>
-				<li>
 				<li><a href="CancelOrderRefundServlet">CancelOrder</a></li>
 				<li><a href="contactUs.jsp">Contact Us</a></li>
 			</ul>
@@ -79,9 +78,10 @@ table, td, tr {
 				<td>${orderList.componentName}</td>
 				<td>${orderList.quantity}</td>
 				<td>${orderList.totalPrice}</td>
-				
-				<td><fmt:parseDate value="${orderList.orderDate}"   pattern="yyyy-MM-dd" var="orderDate" type="date"/>
-<fmt:formatDate pattern="dd-MM-yyyy" value="${orderDate}"/></td>
+
+				<td><fmt:parseDate value="${orderList.orderDate}"
+						pattern="yyyy-MM-dd" var="orderDate" type="date" /> <fmt:formatDate
+						pattern="dd-MM-yyyy" value="${orderDate}" /></td>
 			</tr>
 		</c:forEach>
 	</table>

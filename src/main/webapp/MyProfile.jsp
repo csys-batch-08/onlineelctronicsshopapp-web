@@ -115,7 +115,11 @@ input {
   inline-size: 100%;
 }
 
+#profile{
 
+align-content: center;
+margin-right: 150px;
+}
 </style>
 </head>
 <body>
@@ -133,8 +137,9 @@ input {
 
 
 <div class="card">
-<center><h1>My Profile</h1></center>
-
+<div id="profile">
+<h1>My Profile</h1>
+</div>
 <c:forEach items="${listOfUser}" var="users">
 
 <h5>User name:${users.userName}</h5>

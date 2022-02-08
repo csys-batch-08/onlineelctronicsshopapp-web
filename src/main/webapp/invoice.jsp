@@ -89,7 +89,7 @@ input {
 #invoice{
 
 align-content: center;
-margin-left: 550px;
+margin-right: 400px;
 }
 </style>
 </head>

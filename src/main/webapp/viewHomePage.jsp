@@ -5,6 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>view home</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <style>
 .sidebar {
@@ -17,7 +19,6 @@
   overflow: auto;
 }
 
-/* Sidebar links */
 .sidebar a {
   display: block;
   color: white;
@@ -25,26 +26,26 @@
   text-decoration: none;
 }
 
-/* Active/current link */
+
 .sidebar a.active {
   background-color: #6699ff;
   color: white;
 }
 
-/* Links on mouse-over */
+
 .sidebar a:hover:not(.active) {
   background-color: #555;
   color: white;
 }
 
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+
 div.content {
   margin-left: 200px;
   padding: 1px 16px;
   height: 1000px;
 }
 
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
+
 @media screen and (max-width: 700px) {
   .sidebar {
     width: 100%;
@@ -55,7 +56,7 @@ div.content {
   div.content {margin-left: 0;}
 }
 
-/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+
 @media screen and (max-width: 400px) {
   .sidebar a {
     text-align: center;
@@ -71,10 +72,8 @@ body {
 }
 
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="sidebar">
   <a class="active" href="index.jsp">Home</a>
   <a href="ShowComponentServlet">Components</a>
