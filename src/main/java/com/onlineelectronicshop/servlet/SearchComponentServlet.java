@@ -21,19 +21,12 @@ import com.onlineelectronicshop.model.Components;
 public class SearchComponentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public SearchComponentServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String component=request.getParameter("search");
 		ComponentDaoImpl compontDao=new ComponentDaoImpl();
@@ -52,16 +45,10 @@ public class SearchComponentServlet extends HttpServlet {
 		
 		HttpSession session=request.getSession();
 		request.setAttribute("list",ShowComponent);
-		System.out.println(ShowComponent);
 		RequestDispatcher requestDispatch=request.getRequestDispatcher("searchComponents.jsp");
 		requestDispatch.forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

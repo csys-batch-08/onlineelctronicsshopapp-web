@@ -13,6 +13,14 @@ import com.onlineelectronicshop.model.User;
 import com.onlineelectronicshop.util.ConnectionUtil;
 
 public class InvoiceDaoImpl {
+	static final String COMPONENTNAME="COMPONENT_NAME";
+	static final String DESCRIPTION="DESCRIPTION";
+	static final String TOTALPRICE="TOTAL_PRICE";
+	static final String USERNAME="USER_NAME";	
+	static final String ORDERDATE="ORDER_DATE";
+	static final String QUANTITY="quantity";
+	
+	
 	public List<List<Object>> showBill(int userId) {
 		Connection con = ConnectionUtil.getDbConnection();
 		
@@ -36,20 +44,17 @@ public class InvoiceDaoImpl {
 			 listObject = new ArrayList<List<Object>>();
 				while (rs.next()) {
 					list = new ArrayList<Object>();
-					list.add(rs.getString(1));
-					list.add(rs.getString(2));
-					list.add(rs.getInt(3));
-					list.add(rs.getDouble(4));
-					list.add(rs.getDate(5));
+					list.add(rs.getString(USERNAME));
+					list.add(rs.getString(COMPONENTNAME));
+					list.add(rs.getInt(QUANTITY));
+					list.add(rs.getDouble(TOTALPRICE));
+					list.add(rs.getDate(ORDERDATE));
 					listObject.add(list);
 			 }
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			ConnectionUtil.closePreparedStatement(pstmt, con, rs);
-		}
-		return listObject;
+				return listObject;
 }
 }

@@ -23,12 +23,10 @@ public class CancelOrderRefundServlet extends HttpServlet {
 
 	public CancelOrderRefundServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		OrderDaoImpl orderDao = new OrderDaoImpl();
@@ -42,12 +40,10 @@ public class CancelOrderRefundServlet extends HttpServlet {
 		request.setAttribute("User", user);
 		RequestDispatcher requestDispatch = request.getRequestDispatcher("cancelOrder.jsp");
 		requestDispatch.forward(request, response);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -14,34 +14,27 @@ import javax.servlet.http.HttpSession;
 
 import com.onlineelectronicshop.daoImpl.ComponentDaoImpl;
 import com.onlineelectronicshop.model.Components;
+
 @WebServlet("/DeleteProductServlet")
-/**
- * Servlet implementation class DeleteProductServlet
- */
 public class DeleteProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteProductServlet() {
-        super();
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		ComponentDaoImpl comDao=new ComponentDaoImpl();
-		List<Components> componentsList=comDao.showComponent();
-		session.setAttribute("components", componentsList);
-		RequestDispatcher dispatcher=request.getRequestDispatcher("deleteComponent.jsp");
-		dispatcher.forward(request, response);
-		
+	public DeleteProductServlet() {
+		super();
 	}
-	
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		ComponentDaoImpl comDao = new ComponentDaoImpl();
+		List<Components> componentsList = comDao.showComponent();
+		session.setAttribute("components", componentsList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("deleteComponent.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 }

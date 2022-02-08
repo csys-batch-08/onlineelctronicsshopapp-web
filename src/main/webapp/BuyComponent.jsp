@@ -49,8 +49,9 @@ body{
 </c:if>
 <br><br>
 <lable>Enter address </lable>
-<input type="text" name="address" required>
 <br>
+<textarea id="description" name="address" rows="4" cols="50"></textarea><br>
+
 <button type="submit">Buy</button>
 </form>
 </body>

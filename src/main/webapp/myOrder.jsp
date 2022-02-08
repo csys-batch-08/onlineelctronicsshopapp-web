@@ -73,10 +73,10 @@ table, td, tr {
 		<c:forEach items="${listOfOrder}" var="orderList">
 			<c:set var="user" scope="session" value="${UserName}" />
 			<c:set var="componentName" scope="session" value="${componentName}" />
-<jsp:useBean id="component" class="com.onlineelectronicshop.daoImpl.ComponentDaoImpl"/>
+
 			<tr>
 				<td>${user.userName}</td>
-				<td>${component.findComponent(orderList.componentId)}</td>
+				<td>${orderList.componentName}</td>
 				<td>${orderList.quantity}</td>
 				<td>${orderList.totalPrice}</td>
 				

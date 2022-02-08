@@ -23,11 +23,9 @@ public class OrderListServlet extends HttpServlet {
     
     public OrderListServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		OrderDaoImpl orderDao=new OrderDaoImpl();	
 		List<Order> orderList = orderDao.orderList();
@@ -38,7 +36,6 @@ public class OrderListServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

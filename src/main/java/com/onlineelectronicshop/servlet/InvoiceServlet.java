@@ -13,33 +13,28 @@ import javax.servlet.http.HttpSession;
 import com.onlineelectronicshop.daoImpl.InvoiceDaoImpl;
 import com.onlineelectronicshop.model.User;
 
-
 @WebServlet("/InvoiceServlet")
 public class InvoiceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public InvoiceServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	
-		HttpSession session=request.getSession();
-		User user=(User)session.getAttribute("CurrentUser");
-		InvoiceDaoImpl invoice=new InvoiceDaoImpl();
-		List<List<Object>> list=invoice.showBill(user.getUserid());	
-        session.setAttribute("invoice",list);
-        response.sendRedirect("invoice.jsp");
-		
+	public InvoiceServlet() {
+		super();
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("CurrentUser");
+		InvoiceDaoImpl invoice = new InvoiceDaoImpl();
+		List<List<Object>> list = invoice.showBill(user.getUserid());
+		session.setAttribute("invoice", list);
+		response.sendRedirect("invoice.jsp");
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

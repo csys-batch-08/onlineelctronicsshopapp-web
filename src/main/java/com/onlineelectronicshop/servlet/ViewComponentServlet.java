@@ -17,31 +17,24 @@ import com.onlineelectronicshop.model.Components;
 @WebServlet("/ViewComponentServlet")
 public class ViewComponentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public ViewComponentServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public ViewComponentServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		
-		ComponentDaoImpl comDao=new ComponentDaoImpl();	
-		UserDaoImpl userDaoImpl=new UserDaoImpl();
-		List<Components> componentList=comDao.showComponent();
+		ComponentDaoImpl comDao = new ComponentDaoImpl();
+		UserDaoImpl userDaoImpl = new UserDaoImpl();
+		List<Components> componentList = comDao.showComponent();
 		request.setAttribute("componentList", componentList);
 		RequestDispatcher requestDispatch = request.getRequestDispatcher("viewComponent.jsp");
 		requestDispatch.forward(request, response);
-		
-		
-		 
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -18,32 +18,27 @@ import com.onlineelectronicshop.model.Order;
 @WebServlet("/ShowCalculateAmountServlet")
 public class ShowCalculateAmountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public ShowCalculateAmountServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		Date fromDate=(Date)session.getAttribute("FromDate");
-		Date toDate=(Date)session.getAttribute("ToDate");
-		OrderDaoImpl orderDao=new OrderDaoImpl();
-		List<Order> orderList=orderDao.CalculateAmount(fromDate, toDate);
-		session.setAttribute("list2", orderList);
-		
-		System.out.println(orderList);
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("sales.jsp");
-		requestDispatch.forward(request, response);		
+	public ShowCalculateAmountServlet() {
+		super();
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		Date fromDate = (Date) session.getAttribute("FromDate");
+		Date toDate = (Date) session.getAttribute("ToDate");
+		OrderDaoImpl orderDao = new OrderDaoImpl();
+		List<Order> orderList = orderDao.CalculateAmount(fromDate, toDate);
+		session.setAttribute("list2", orderList);
+		RequestDispatcher requestDispatch = request.getRequestDispatcher("sales.jsp");
+		requestDispatch.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 

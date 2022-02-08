@@ -28,9 +28,7 @@ public class MyProfileServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
 		HttpSession session=request.getSession();
 		User user=(User) session.getAttribute("CurentUser");
 		UserDaoImpl daoImpl=new UserDaoImpl(); 
@@ -43,12 +41,10 @@ public class MyProfileServlet extends HttpServlet {
 		List<User> newUser= new ArrayList<User>();
 		newUser.add(user);
 		request.setAttribute("listOfUser",newUser);
-		
 		RequestDispatcher requestDispatch = request.getRequestDispatcher("myProfile.jsp");
 		requestDispatch.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -43,6 +43,11 @@ body{
 	font-size: 17px;
 	text-decoration:none;
 }
+#cart{
+align-content: center;
+margin-left: 550px;
+
+}
 </style>
 </head>
 <body>
@@ -63,20 +68,18 @@ body{
 <c:set var="component" scope="session" value="${componentName}"/> 
  <c:set var="componentId" scope="session" value="${componentId}"/> 
  <c:set var="price" scope="session" value="${price}"/> 
-<center>
+<div id="cart">
 <h1>Insert cart</h1>
-</center>
 <form action="insertCartServlet" method="post">
-<center>
 <input type="hidden" value="${componentId}" name="compantId"><br><br>
 <label>ComponentName</label>
 <input type="text" value="${component}" name="CompantName"><br><br>
-<lable>Price</lable>
+<label>Price</label>
 <input type="number" value="${price}" name="price"><br>
 <br>
 <button type="submit">Submit</button>
 <span><a href="viewHomePage.jsp">Home</a></span>
-</center>
+</div>
 </form>
 </body>
 </html>

@@ -13,6 +13,14 @@ import com.onlineelectronicshop.model.Order;
 import com.onlineelectronicshop.util.ConnectionUtil;
 
 public class ComponentDaoImpl {
+	static final String COMPONENTID = "COMPONENT_ID";
+	static final String COMPONENTNAME = "COMPONENT_NAME";
+	static final String CATEGORYNAME = "CATEGORY_NAME";
+	static final String DESCRIPTION = "DESCRIPTION";
+	static final String TOTALPRICE = "TOTAL_PRICE";
+	static final String PICTURE = "PICTURE";
+	static final String COMPONENTSTATUS = "COMPONENT_STATUS";
+	static final String QUANTITY = "quantity";
 
 	public void insertComponent(Components component) {
 		String insertQuery = " insert into component_info (component_name,category_name,description,total_price,component_status,picture)values(?,?,?,?,?,?)";
@@ -45,8 +53,9 @@ public class ComponentDaoImpl {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(showQuery);
 			while (rs.next()) {
-				Components component = new Components(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getDouble(5), rs.getString(6), rs.getString(7));
+				Components component = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
+						rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
+						rs.getString(COMPONENTSTATUS), rs.getString(PICTURE));
 				componentsList.add(component);
 			}
 			return componentsList;
@@ -68,8 +77,9 @@ public class ComponentDaoImpl {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(showQuery);
 			while (rs.next()) {
-				Components component = new Components(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getDouble(5), rs.getString(6), rs.getString(7));
+				Components component = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
+						rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
+						rs.getString(COMPONENTSTATUS), rs.getString(PICTURE));
 				componentsList.add(component);
 			}
 			return componentsList;
@@ -93,8 +103,9 @@ public class ComponentDaoImpl {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(showQuery);
 			while (rs.next()) {
-				Components component = new Components(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getDouble(5), rs.getString(6), rs.getString(7));
+				Components component = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
+						rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
+						rs.getString(COMPONENTSTATUS), rs.getString(PICTURE));
 				componentsList.add(component);
 			}
 			return componentsList;
@@ -107,7 +118,7 @@ public class ComponentDaoImpl {
 	}
 
 	public List<Order> offers() {
-		String showQuery = "select c.component_id,c.component_name,c.category_name,c.description,c.total_price, sum(o.quantity) from component_info c join orders_table o on c.component_id=o.component_id group by (c.component_name,c.total_price,c.category_name,c.component_id,c.description) order by sum(quantity) fetch first 1 rows only ";
+		String showQuery = "select c.component_id,c.component_name,c.category_name,c.description,c.total_price, sum(o.quantity) as quantity from component_info c join orders_table o on c.component_id=o.component_id group by (c.component_name,c.total_price,c.category_name,c.component_id,c.description) order by sum(quantity) fetch first 1 rows only ";
 		Connection con = ConnectionUtil.getDbConnection();
 		PreparedStatement preparedstatement = null;
 		ResultSet resultset = null;
@@ -116,11 +127,12 @@ public class ComponentDaoImpl {
 			preparedstatement = con.prepareStatement(showQuery);
 			resultset = preparedstatement.executeQuery();
 			while (resultset.next()) {
-				Components component = new Components(resultset.getInt(1), resultset.getString(2),
-						resultset.getString(3), resultset.getString(4), resultset.getDouble(5));
+				Components component = new Components(resultset.getInt(COMPONENTID), resultset.getString(COMPONENTNAME),
+						resultset.getString(CATEGORYNAME), resultset.getString(DESCRIPTION),
+						resultset.getDouble(TOTALPRICE));
 				Order order = new Order();
 				order.setComponents(component);
-				order.setQuantity(resultset.getInt(6));
+				order.setQuantity(resultset.getInt(QUANTITY));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,7 +152,7 @@ public class ComponentDaoImpl {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
 			if (rs.next()) {
-				componentId = rs.getInt(1);
+				componentId = rs.getInt(COMPONENTID);
 			}
 
 		} catch (SQLException e) {
@@ -161,14 +173,13 @@ public class ComponentDaoImpl {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, componentId);
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				name = (rs.getString(1));
+				name = (rs.getString(COMPONENTNAME));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			ConnectionUtil.closePreparedStatement(pstmt, con, rs);
 		}
 		return name;
 
@@ -215,7 +226,7 @@ public class ComponentDaoImpl {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
 			if (rs.next()) {
-				price = rs.getDouble(5);
+				price = rs.getDouble(TOTALPRICE);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -223,33 +234,6 @@ public class ComponentDaoImpl {
 			ConnectionUtil.closeStatement(stmt, con, rs);
 		}
 		return price;
-	}
-
-	public List<Components> findCategory() {
-		List<Components> componentsList = new ArrayList<Components>();
-		String query = "select select component_id,component_name,category_name,description,total_price,component_status,picture from component_info";
-		Connection con = ConnectionUtil.getDbConnection();
-		Components component = null;
-		Statement stmt;
-		try {
-			stmt = con.createStatement();
-			ResultSet rs;
-			rs = stmt.executeQuery(query);
-			while (rs.next()) {
-
-				try {
-					component = new Components(rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5),
-							rs.getString(7));
-				} catch (SQLException e) {
-
-				}
-				componentsList.add(component);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return componentsList;
 	}
 
 }

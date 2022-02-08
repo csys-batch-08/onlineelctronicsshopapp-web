@@ -48,21 +48,15 @@ public class BuyServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
 		int compid = (int) session.getAttribute("componentId");
-		// int compid=Integer.parseInt(request.getParameter("componentId"));
-
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String address = request.getParameter("address");
-		// double price1=Double.parseDouble(request.getParameter("price"));
 		Double price1 = (Double) session.getAttribute("price");
-
 		double totalPrice = (price1 * quantity);
 		WalletDaoImpl walletDao = new WalletDaoImpl();
 		int userWallet = 0;
-
 		double wallbalance = userWallet - totalPrice;
 		try {
 			userWallet = walletDao.walletBalance(userId);
-
 			if (userWallet > totalPrice) {
 				double Blanceamount = userWallet - totalPrice;
 				session.setAttribute("wallbal", Blanceamount);

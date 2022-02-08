@@ -77,8 +77,8 @@ font-size: 17px;
 <nav>
 <div class="menu-bar">
         <ul>
-            <li><a href="Home.jsp">Home</a></li>
-            <li><a href="calculateAmount.jsp">CalculateAmount</a></li>
+            <li><a href="viewHomePage.jsp">Home</a></li>
+            <li><a href="calculateAmount.jsp">Calculate Amount</a></li>
             <li><a href="admin.jsp">Admin</a></li>
             <li><a href="contactUs.jsp">Contact Us</a>               
     </ul>

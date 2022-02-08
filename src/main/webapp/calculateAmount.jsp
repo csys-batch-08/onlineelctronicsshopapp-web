@@ -37,7 +37,10 @@ body{
    
     font-family: Cambria;
 }
-
+#profile{
+align-content: center;
+margin-left: 550px;
+}
 
 </style>
 </head>
@@ -45,9 +48,9 @@ body{
 <nav>
 <div class="menu-bar">
         <ul>
-            <li><a href="Home.jsp">Home</a></li>
-            <li><a href="admin.jsp">AadminPage</a></li>
-            <li><a href="orderList.jsp">ViewOrders</a></li>
+            <li><a href="viewHomePage.jsp">Home</a></li>
+            <li><a href="admin.jsp">AdminPage</a></li>
+            <li><a href="OrderListServlet">ViewOrders</a></li>
             <li><a href="contactUs.jsp">Contact Us</a>
             
                   
@@ -55,10 +58,7 @@ body{
     </div>
     <br>
     </nav>
-
-
-
-<center>
+<div id="profile">
 <form action="CalculateAmount">
   <h1>CalculateAmount</h1>
   
@@ -69,8 +69,7 @@ body{
   <input type="date" name="todate" id="todate" required ><br><br>
   
   <input type="submit" value="Calculate">
- 
   </form>
-  </center>
+ </div>
 </body>
 </html>

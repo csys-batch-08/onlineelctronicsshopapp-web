@@ -17,32 +17,16 @@ import javax.servlet.http.HttpSession;
 import com.onlineelectronicshop.daoImpl.OrderDaoImpl;
 
 @WebServlet("/CalculateAmount")
-/**
- * Servlet implementation class CalculateAmountServlet
- */
 public class CalculateAmountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public CalculateAmountServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+		response.getWriter().append("Served at: ").append(request.getContextPath());	
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			
+		try {		
 			Date fromDate = sdf.parse(request.getParameter("fromdate"));
-			
 			Date toDate = sdf.parse(request.getParameter("todate"));
 			HttpSession session=request.getSession();
 			session.setAttribute("FromDate", fromDate);
@@ -50,17 +34,10 @@ public class CalculateAmountServlet extends HttpServlet {
 			response.sendRedirect("ShowCalculateAmountServlet");
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}			
 	}
-	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

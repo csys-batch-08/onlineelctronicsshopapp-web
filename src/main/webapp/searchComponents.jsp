@@ -97,7 +97,7 @@ background-color:#00061a;
 
 <div class="product-right">
 
-<img alter="#alter" src="images1/${search.image}" width="200"height="200"><br>
+<img alter="#alter" src="assests/images/${search.image}" width="200"height="200"><br>
 </div>
 
 <span style="visibility:hidden;">${search.componentId}</span><br><br>

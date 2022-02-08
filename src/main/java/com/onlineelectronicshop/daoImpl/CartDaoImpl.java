@@ -15,6 +15,17 @@ import com.onlineelectronicshop.util.ConnectionUtil;
 import com.onlineelectronicshopdao.CartDAO;
 
 public class CartDaoImpl {
+	static final String USERID="USER_ID";
+	static final String COMPONENTID="COMPONENT_ID";
+	static final String CARTID="CART_ID";
+	static final String COMPONENTNAME="COMPONENT_NAME";
+	static final String CATEGORYNAME="CATEGORY_NAME";
+	static final String DESCRIPTION="DESCRIPTION";
+	static final String TOTALPRICE="TOTAL_PRICE";
+	static final String PICTURE="PICTURE";
+	static final String COMPONENTSTATUS="COMPONENT_STATUS";
+
+	
 	public void insertCart(Cart cart) {
 		String insertQuery = "insert into cart(user_id,component_id)values(?,?)";
 		Connection con = ConnectionUtil.getDbConnection();
@@ -73,7 +84,7 @@ public class CartDaoImpl {
 			pstmt.setInt(1, userId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				componentsList.add(new Components(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDouble(4),
+				componentsList.add(new Components(rs.getString(COMPONENTNAME), rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
 						rs.getString(5)));
 			}
 		} catch (SQLException e) {
@@ -94,7 +105,7 @@ public class CartDaoImpl {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(cart);
 			while (rs.next()) {
-				Cart cart1 = new Cart(rs.getInt(2), rs.getInt(3));
+				Cart cart1 = new Cart(rs.getInt(USERID), rs.getInt(COMPONENTID));
 				cartList.add(cart1);
 			}
 		} catch (SQLException e) {

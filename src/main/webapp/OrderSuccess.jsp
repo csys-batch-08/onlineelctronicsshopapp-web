@@ -32,6 +32,10 @@ body{
 	font-size: 17px;
 	text-decoration:none;
 }
+#ordersuccess{
+align-content: center;
+margin-left: 500px;
+}
 </style>
 </head>
 <body>
@@ -50,9 +54,9 @@ body{
     <br>
     </nav>	
 <form action="ShowOrderServlet">
+<div id="ordersuccess">
 
-
-<center><h1>Order success! Thank You!!</h1>
+<h1>Order success! Thank You!!</h1>
 <h2><i>Your Payment Is Debited from Your Wallet</i></h2>
 
 
@@ -66,6 +70,7 @@ body{
 <h2><i> Your Revised Wallet Amount : ${wallet}</i></h2>
 
 <button type="submit">click to check order</button><br>
+</div>
 </form>
 </body>
 </html>

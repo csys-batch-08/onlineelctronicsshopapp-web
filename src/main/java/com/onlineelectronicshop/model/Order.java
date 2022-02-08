@@ -13,6 +13,7 @@ public class Order {
 	private String address;
 	private LocalDate orderDate;
 	private String orderStatus;
+	private String componentName;
 	
 	
 	public int getOrderid() {
@@ -61,6 +62,12 @@ public class Order {
 	
 	
 	
+	public String getComponentName() {
+		return componentName;
+	}
+	public void setComponentName(String componentName) {
+		this.componentName = componentName;
+	}
 	public String getOrderStatus() {
 		return orderStatus;
 	}
@@ -113,6 +120,23 @@ public class Order {
 		this.orderStatus=orderStatus;
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
+	public Order(int orderid, int componentId, int userId, int quantity, double totalPrice, String address,
+			LocalDate orderDate, String orderStatus, String componentName) {
+		super();
+		this.orderid = orderid;
+		this.componentId = componentId;
+		this.userId = userId;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+		this.address = address;
+		this.orderDate = orderDate;
+		this.orderStatus = orderStatus;
+		this.componentName = componentName;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(address, componentId, quantity, totalPrice, userId);
@@ -137,7 +161,6 @@ public class Order {
 	}
 	
 	public void setComponents(Components component) {
-		// TODO Auto-generated method stub
 		
 	}
 	

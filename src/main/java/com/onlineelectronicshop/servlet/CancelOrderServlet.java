@@ -15,29 +15,14 @@ import com.onlineelectronicshop.model.User;
 
 
 @WebServlet("/CancelOrderServlet")
-
-/**
- * Servlet implementation class CancelOrderServlet
- */
 public class CancelOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public CancelOrderServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session=request.getSession();
-
 		int orderid=Integer.parseInt(request.getParameter("orderId"));
 		double price=Double.parseDouble(request.getParameter("refundprice"));
 		User user=(User)session.getAttribute("CurentUser");

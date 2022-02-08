@@ -16,8 +16,21 @@ import com.onlineelectronicshop.model.Components;
 import com.onlineelectronicshop.model.User;
 import com.onlineelectronicshop.util.ConnectionUtil;
 
-public class OrderDaoImpl {
-	//insert cart
+public class OrderDaoImpl {	
+	static final String ORDERID="ORDER_ID";
+
+	
+	static final String COMPONENTID="COMPONENT_ID";
+	static final String COMPONENTNAME="COMPONENT_NAME";
+	static final String ADDRESS="ADDRESS";
+	static final String ORDERSTATUS="ORDER_STATUS";
+	static final String TOTALPRICE="TOTAL_PRICE";
+	static final String COMPONENTSTATUS="COMPONENT_STATUS";
+	static final String USERID="USER_ID";
+	static final String QUANTITY="QUANTITY";
+	static final String ORDERDATE="ORDER_DATE";
+
+
 public void  insertOrder(Order order) throws SQLException {
 	ComponentDaoImpl comDao=new ComponentDaoImpl(); 
 	UserDaoImpl userDaoImpl=new UserDaoImpl();
@@ -46,6 +59,7 @@ public List<Order>showOrder(int userId){
 	Connection con=ConnectionUtil.getDbConnection(); 
 	List<Order> orderList=new ArrayList<Order>();
 	ComponentDaoImpl comDao=new ComponentDaoImpl();
+	
 	Statement stmt=null;
 	ResultSet rs=null;
 	String query="select order_id,user_id,component_id,quantity,total_price,address,order_date,order_status from orders_table where order_status='Not delivered' and user_id='"+userId+"'order by order_date desc";
@@ -54,7 +68,8 @@ public List<Order>showOrder(int userId){
 		rs=stmt.executeQuery(query);
 	
     while(rs.next()) {
-	Order order=new Order(rs.getInt(1),rs.getInt(3),rs.getInt(2),rs.getInt(4),rs.getDouble(5),rs.getString(6),rs.getDate(7).toLocalDate());
+    String componentName=comDao.findComponent(rs.getInt(COMPONENTID));	
+	Order order=new Order(rs.getInt(ORDERID),rs.getInt(COMPONENTID),rs.getInt(USERID),rs.getInt(QUANTITY),rs.getDouble(TOTALPRICE),rs.getString(ADDRESS),rs.getDate(ORDERDATE).toLocalDate(),rs.getString(ORDERSTATUS),componentName);
 	
 	orderList.add(order);
 		
@@ -81,7 +96,7 @@ public LocalDate findOrderDate(int userId) {
 			stmt = con.createStatement();
 			rs=stmt.executeQuery(query);
 			if(rs.next()) {
-				orderDate=rs.getDate(1).toLocalDate();
+				orderDate=rs.getDate(ORDERDATE).toLocalDate();
 			}
 		} catch (SQLException e) {
 
@@ -126,7 +141,7 @@ public List<Order> orderList(){
 		 rs=stmt.executeQuery(query);
 	
 		 while(rs.next()) {
-		Order order=new Order(rs.getInt(1),rs.getInt(3),rs.getInt(2),rs.getInt(4),rs.getDouble(5),rs.getString(6),rs.getDate(7).toLocalDate(),rs.getString(8));
+		Order order=new Order(rs.getInt(ORDERID),rs.getInt(COMPONENTID),rs.getInt(USERID),rs.getInt(QUANTITY),rs.getDouble(TOTALPRICE),rs.getString(ADDRESS),rs.getDate(ORDERDATE).toLocalDate(),rs.getString(ORDERSTATUS));
 		
 		orderList.add(order);
 			
@@ -177,8 +192,8 @@ try {
 	rs = pstmt.executeQuery();
 	while(rs.next()) {
 		order=new Order();
-		order.setComponentId(rs.getInt(1));
-		order.setTotalPrice(rs.getDouble(2));
+		order.setComponentId(rs.getInt(COMPONENTID));
+		order.setTotalPrice(rs.getDouble(TOTALPRICE));
 		orderList.add(order);	
 	}
 	

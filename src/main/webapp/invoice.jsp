@@ -86,16 +86,20 @@ input {
 .button--full {
   inline-size: 100%;
 }
+#invoice{
 
-
+align-content: center;
+margin-left: 550px;
+}
 </style>
 </head>
 <body>
 
 <form>
 <header class="header">
-   <center>
-    <h1>Invoice</h1></center>
+   <div id="invoice">
+    <h1>Invoice</h1>
+    </div>
   </header>
   <div class="card">
   

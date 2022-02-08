@@ -41,7 +41,6 @@ public class DeleteCartServlet extends HttpServlet {
 			try {
 				cartDao.deleteCart(componentId, userId);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		

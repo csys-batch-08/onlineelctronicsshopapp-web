@@ -22,27 +22,23 @@ public class ShowOrderServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		OrderDaoImpl orderDao = new OrderDaoImpl();
 		int userId = (int) session.getAttribute("userId");
-		
-		
 		UserDaoImpl userDao = new UserDaoImpl();
 		ComponentDaoImpl comDao = new ComponentDaoImpl();
 		int componentId = 0;
 		List<Order> orderList = orderDao.showOrder(userId);
 		for (int i = 0; i < orderList.size(); i++) {
 			Order order = orderList.get(i);
-			
+
 			componentId = order.getComponentId();
 		}
 		String componentName = comDao.findComponent(componentId);
 		User user = userDao.findUser(userId);
 		request.setAttribute("listOfOrder", orderList);
 		request.setAttribute("UserName", user);
-		
 		RequestDispatcher requestDispatch = request.getRequestDispatcher("myOrder.jsp");
 		requestDispatch.forward(request, response);
 	}

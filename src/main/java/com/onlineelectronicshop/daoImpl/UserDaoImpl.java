@@ -15,8 +15,18 @@ import javax.servlet.http.HttpSession;
 import com.onlineelectronicshop.model.User;
 import com.onlineelectronicshop.util.ConnectionUtil;
 
-public class UserDaoImpl {
 
+public class UserDaoImpl {
+	static final String USERID="USER_ID";
+	static final String USERNAME="USER_NAME";
+	static final String EMAILID="EMAIL_ID";
+	static final String PASSWORD="PASSWORD";
+	static final String CONTACTNUMBER="CONTACT_NUMBER";
+	static final String ADDRESS="ADDRESS";
+	static final String ROLE="ROLE";
+	static final String WALLET="WALLET";
+
+	
 	public void insertUser(User user) {
 		String insertQuery = "insert into user_details(user_name,email_id,password,contact_number,address) values(?,?,?,?,?)";
 		ConnectionUtil conUtil = new ConnectionUtil();
@@ -44,7 +54,7 @@ public class UserDaoImpl {
 	}
 
 	public  User validateUser(String emailId, String password) {
-		String validateQuery ="select * from user_details where email_id='"+emailId+"' and password='"+password+"'";
+		String validateQuery ="select user_id,user_name,email_id,password,contact_number,address,role,wallet from user_details where email_id='"+emailId+"' and password='"+password+"'";
 				
 		Connection con = ConnectionUtil.getDbConnection();
 		User user = null; 
@@ -56,7 +66,7 @@ public class UserDaoImpl {
 			rs = st.executeQuery(validateQuery);
 			if (rs.next()) {
 				 
-				user = new User(rs.getInt(1),rs.getString(2),emailId, password, rs.getLong(5),rs.getString(6),rs.getString(7),rs.getDouble(8));
+				user = new User(rs.getInt(USERID),rs.getString(USERNAME),emailId, password, rs.getLong(CONTACTNUMBER),rs.getString(ADDRESS),rs.getString(ROLE),rs.getDouble(WALLET));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -129,7 +139,7 @@ public class UserDaoImpl {
 	public  List<User> showAllUser() {
 		List<User> UsersList = new ArrayList<User>();
 
-		String showQuery = "select *from user_details where role='user'";
+		String showQuery = "select user_id,user_name,email_id,password,contact_number,address,role,wallet from user_details where role='user'";
 		Connection con = ConnectionUtil.getDbConnection();
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -139,7 +149,7 @@ public class UserDaoImpl {
 			while (rs.next()) {
 
 				UsersList.add(
-						new User(rs.getString(2), rs.getString(3), rs.getString(4), rs.getLong(5), rs.getString(6),rs.getString(7),rs.getDouble(8)));
+						new User(rs.getString(USERNAME), rs.getString(EMAILID), rs.getString(PASSWORD), rs.getLong(CONTACTNUMBER), rs.getString(ADDRESS),rs.getString(ROLE),rs.getDouble(WALLET)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -156,7 +166,7 @@ public class UserDaoImpl {
 
 	
 	public User findUser(int userId) {
-		String findUser = "select * from user_details where USER_ID=?";
+		String findUser = "select user_id,user_name,email_id,password,contact_number,address,role,wallet from user_details where USER_ID=?";
 		Connection con = ConnectionUtil.getDbConnection();
 		PreparedStatement pstmt=null;
 		User user = null;
@@ -167,8 +177,7 @@ public class UserDaoImpl {
 		    rs = pstmt.executeQuery();
 			while (rs.next()) {
 				
-				user = new User( rs.getString(2), rs.getString(3), rs.getString(4), rs.getLong(5),
-						rs.getString(6));
+				user = new User( rs.getString(2), rs.getString(3), rs.getString(4), rs.getLong(5),rs.getString(6));
 			}
 			return user;
 		} catch (SQLException e) {
@@ -191,7 +200,7 @@ public class UserDaoImpl {
 			pstm.setInt(1, userId);
 			rs = pstm.executeQuery();
 			while(rs.next()) {
-				User user=new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getLong(4),rs.getString(5),rs.getString(6),rs.getInt(8));
+				User user=new User(rs.getString(USERNAME),rs.getString(EMAILID),rs.getString(PASSWORD),rs.getLong(CONTACTNUMBER),rs.getString(ADDRESS),rs.getString(ROLE),rs.getInt(USERID));
 				UsersList.add(user);
 			}
 	}catch(Exception e) {
