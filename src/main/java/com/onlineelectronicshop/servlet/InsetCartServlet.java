@@ -45,17 +45,13 @@ public class InsetCartServlet extends HttpServlet {
 		CartDaoImpl cartDao=new CartDaoImpl();
        Cart cart=new Cart(userId1,comId);
        cartDao.insertCart(cart);
-       session.setAttribute("componentnewId", cart);
+       request.setAttribute("componentnewId", cart);
        int userId=(int) session.getAttribute("userId");   
        int compid=(int) session.getAttribute("compID");
        List<Components> componentsList=cartDao.fetchCart(userId);   
-       session.setAttribute("viewCart", componentsList);
+       request.setAttribute("viewCart", componentsList);
    	RequestDispatcher requestDispatch=request.getRequestDispatcher("viewCart.jsp");
    	requestDispatch.forward(request, response);
-       
-   	
-   	
-   	
 	}
 
 }

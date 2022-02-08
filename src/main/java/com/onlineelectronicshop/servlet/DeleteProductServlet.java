@@ -29,7 +29,7 @@ public class DeleteProductServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ComponentDaoImpl comDao = new ComponentDaoImpl();
 		List<Components> componentsList = comDao.showComponent();
-		session.setAttribute("components", componentsList);
+		request.setAttribute("components", componentsList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("deleteComponent.jsp");
 		dispatcher.forward(request, response);
 	}

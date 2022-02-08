@@ -7,7 +7,7 @@
  <%@ page import="java.util.List" %> 
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>view Cart</title>
@@ -24,16 +24,12 @@ body{
 }
 
 </style>
-<h3 style=color:white>Cart</h3>
+
 <c:forEach items="${Offers}" var="offer">
 </head>
 <body>
 
-<table>
 
-
-<tbody>
-<tr>
 
 
 <form action="OrderServlet" method="post"><br>
@@ -42,18 +38,18 @@ body{
 <span>Component Name:${offer.componentName}</span><br>
 
 <br><br>
-<lable>Enter quantity</lable>
+<label>Enter quantity</label>
 <input type="number" name="quantity" min="1" required>
 <br>
 
 <input type="number" name="price" value="${offer.price}">
 <br><br>
-<lable>Enter address </lable>
+<label>Enter address </label>
 <input type="text" name="address" required>
 <br>
 <button type="submit">Buy</button>
 </form>
-</table>
+
 
 </c:forEach>
 

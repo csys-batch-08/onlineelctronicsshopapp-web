@@ -41,8 +41,8 @@ public class OfferDetailServlet extends HttpServlet {
 		component.setPrice(offerPrice);
 		List<Components> componentList=new ArrayList<Components>();
 		componentList.add(component);
-		session.setAttribute("Offers",componentList);
-		session.setAttribute("componentDetail", component);
+		request.setAttribute("Offers",componentList);
+		request.setAttribute("componentDetail", component);
 		RequestDispatcher requestDispatcher=request.getRequestDispatcher("offerDetail.jsp");
 		requestDispatcher.forward(request, response);
 	}

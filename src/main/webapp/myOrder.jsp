@@ -63,11 +63,11 @@ table, td, tr {
 	<h1>My Orders</h1>
 	<table>
 		<tr>
-			<td>User Name</td>
-			<td>Component Name</td>
-			<td>Quantity</td>
-			<td>Price</td>
-			<td>Order Date</td>
+			<th>User Name</th>
+			<th>Component Name</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Order Date</th>
 		</tr>
 		<c:forEach items="${listOfOrder}" var="orderList">
 			<c:set var="user" scope="session" value="${UserName}" />

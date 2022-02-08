@@ -30,11 +30,11 @@ body{
 
 <table>
 <tr>
-<td>ComponentName</td>
-<td>CategoryName</td>
-<td>Description</td>
-<td>TotalPrice</td>
-<td>Action</td>
+<th>ComponentName</th>
+<th>CategoryName</th>
+<th>Description</th>
+<th>TotalPrice</th>
+<th>Action</th>
 </tr>
 <c:forEach items="${showComponent}" var="component">
 <tr>

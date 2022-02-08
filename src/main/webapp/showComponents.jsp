@@ -112,7 +112,7 @@ body {
 			<tr>
 			<th id="tableHead"></th>
 			    
-				<td><img alter="#alter" src="assests/images/${component.image}"
+				<td><img alt="#componentimage" src="assests/images/${component.image}"
 					width="200" height="200"><br>
 					
 				<span style="visibility:hidden;">${component.componentId}</span><br><br>
