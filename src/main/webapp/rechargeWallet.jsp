@@ -41,6 +41,11 @@ table,td,tr{
 border:1px solid black;
 border-collapse:collapse;
 }
+
+#wallet{
+align-content:center;
+margin-left: 500px;
+}
 </style>
 </head>
 <body>
@@ -55,7 +60,7 @@ border-collapse:collapse;
     </div>
     <br>
     </nav>	
-<center>
+<div id="wallet">
 <form action="RechargeWalletServlet" method="post">
 <fieldset>
 <h1>Recharge your wallet</h1>
@@ -67,6 +72,6 @@ border-collapse:collapse;
     </fieldset>
     <br>
     </form>
-    </center>
+    </div>
 </body>
 </html>

@@ -41,7 +41,6 @@ public class UserDaoImpl {
 			pstmt.setString(5, user.getAddress());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
 		}

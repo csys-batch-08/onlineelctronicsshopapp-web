@@ -98,7 +98,6 @@ public class User {
 	
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public User(int int1, String string, String emailId2, String password2, long long1, String string2, String string3,

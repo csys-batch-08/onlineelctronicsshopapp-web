@@ -32,14 +32,11 @@ public class InsetCartServlet extends HttpServlet {
 	     */
 	    public InsetCartServlet() {
 	        super();
-	        // TODO Auto-generated constructor stub
 	    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		int comId=Integer.parseInt(request.getParameter("compantId"));
-		//int comId=(int)session.getAttribute("componentId");
-		//System.out.println("com"+comId);
 		session.setAttribute("compID", comId);
 		String cname=request.getParameter("Cname");
 		session.setAttribute("componentName" ,cname);
@@ -49,15 +46,9 @@ public class InsetCartServlet extends HttpServlet {
        Cart cart=new Cart(userId1,comId);
        cartDao.insertCart(cart);
        session.setAttribute("componentnewId", cart);
-       
-       
-	
-       int userId=(int) session.getAttribute("userId");
-       
+       int userId=(int) session.getAttribute("userId");   
        int compid=(int) session.getAttribute("compID");
-       List<Components> componentsList=cartDao.fetchCart(userId);
-       
-       
+       List<Components> componentsList=cartDao.fetchCart(userId);   
        session.setAttribute("viewCart", componentsList);
    	RequestDispatcher requestDispatch=request.getRequestDispatcher("viewCart.jsp");
    	requestDispatch.forward(request, response);

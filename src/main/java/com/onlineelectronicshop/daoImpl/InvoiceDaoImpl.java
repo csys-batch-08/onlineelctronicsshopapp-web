@@ -55,6 +55,9 @@ public class InvoiceDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			ConnectionUtil.closePreparedStatement(pstmt, con, rs);
+		}
 				return listObject;
 }
 }

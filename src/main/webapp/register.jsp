@@ -11,7 +11,6 @@
 <body>
 <form action="RegisterServlet" class="form" method="post">
         <div class="registerbox">
-        <img src="avatar.png" class="avatar">
         <h1>Register Here</h1>
         <div class="input-group">
             <label for="registername">User Name</label>
