@@ -45,10 +45,10 @@ public class CartDaoImpl {
 
 	public void updateCart(String updateCart){
 		String updateQuery = "update cart set quantity =? where item_id=?";
-
+		PreparedStatement pstmt =null;
 		Connection con = ConnectionUtil.getDbConnection();
 		try {
-			PreparedStatement pstmt = con.prepareStatement(updateQuery);
+			pstmt = con.prepareStatement(updateQuery);
 			pstmt.setInt(1, Integer.parseInt(updateCart.split(",")[0]));
 			pstmt.setInt(2, Integer.parseInt(updateCart.split(",")[1]));
 			int i = pstmt.executeUpdate();
@@ -56,6 +56,9 @@ public class CartDaoImpl {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			ConnectionUtil.closePreparedStatement(pstmt, con);
 		}
 		
 	}
