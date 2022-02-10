@@ -44,9 +44,9 @@ public class LoginServlet extends HttpServlet {
 		User Currentuser = userDaoImpl.validateUser(emailid, password);
 		String userName = Currentuser.getUserName();
 		session.setAttribute("userName", userName);
-		request.setAttribute("CurentUser", Currentuser);
+		session.setAttribute("CurentUser", Currentuser);
 		if (Currentuser.getRole().equals("user")) {
-			request.setAttribute("CurrentUser", Currentuser);
+			session.setAttribute("CurrentUser", Currentuser);
 			session.setAttribute("userId", Currentuser.getUserid());
 			response.sendRedirect("viewHomePage.jsp");
 		}

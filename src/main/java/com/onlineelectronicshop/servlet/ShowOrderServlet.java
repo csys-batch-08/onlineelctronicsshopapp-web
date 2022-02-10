@@ -34,7 +34,6 @@ public class ShowOrderServlet extends HttpServlet {
 			Order order = orderList.get(i);
 			componentId = order.getComponentId();
 		}
-		String componentName = comDao.findComponent(componentId);
 		User user = userDao.findUser(userId);
 		request.setAttribute("listOfOrder", orderList);
 		request.setAttribute("UserName", user);

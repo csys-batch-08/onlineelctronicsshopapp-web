@@ -58,15 +58,17 @@ public class WalletDaoImpl {
 
 	}
 
-	public void updateWalletbalance(Double amount, int userId){
+	public int updateWalletbalance(Double amount, int userId){
 		Connection con = ConnectionUtil.getDbConnection();
 		String query = "update user_details set wallet=wallet+? where user_id=?";
 		PreparedStatement pstmt=null;
+		int result=0;
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setDouble(1, amount);
 			pstmt.setInt(2, userId);
-			int result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 			pstmt.executeUpdate("commit");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,11 +76,12 @@ public class WalletDaoImpl {
 finally {
 	ConnectionUtil.closePreparedStatement(pstmt, con);
 }
+		return result;
+
 	}
 
 	public boolean refundWallet(Double amount, User user) {
 		Connection con = ConnectionUtil.getDbConnection();
-		UserDaoImpl userDao = new UserDaoImpl();
 		Statement stmt = null;
 		String updateQuery1 = "update user_details set wallet=" + (user.getWallet() + amount) + "where user_id="
 				+ user.getUserid();

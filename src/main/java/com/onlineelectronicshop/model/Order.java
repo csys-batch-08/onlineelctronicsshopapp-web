@@ -1,11 +1,16 @@
 package com.onlineelectronicshop.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Order {
-    private int orderid;
+public class Order implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int orderid;
 	private int componentId;
 	private int userId;
 	private int quantity;

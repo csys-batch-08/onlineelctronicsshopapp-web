@@ -1,9 +1,14 @@
 package com.onlineelectronicshop.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Cart {
-    private int cartId;
+public class Cart implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int cartId;
     private int userId;
 	private int componentId;
 	public int getCartId() {

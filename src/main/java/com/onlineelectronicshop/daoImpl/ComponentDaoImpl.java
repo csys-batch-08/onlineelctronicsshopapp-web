@@ -46,12 +46,13 @@ public class ComponentDaoImpl {
 	public List<Components> showComponent() {
 		List<Components> componentsList = new ArrayList<Components>();
 		Connection con = ConnectionUtil.getDbConnection();
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String showQuery = "select component_id,component_name,category_name,description,total_price,component_status,picture from component_info where component_status='active'";
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(showQuery);
+			String showQuery = "select component_id,component_name,category_name,description,total_price,component_status,picture "
+					+ "from component_info where component_status='active'";
+			pstmt = con.prepareStatement(showQuery);
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Components component = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
 						rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
@@ -62,7 +63,7 @@ public class ComponentDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(pstmt, con, rs);
 		}
 		return componentsList;
 	}
@@ -70,12 +71,13 @@ public class ComponentDaoImpl {
 	public List<Components> showInactive() {
 		List<Components> componentsList = new ArrayList<Components>();
 		Connection con = ConnectionUtil.getDbConnection();
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			String showQuery = "select component_id,component_name,category_name,description,total_price,component_status,picture from component_info where component_status='Inactive'";
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(showQuery);
+			String showQuery = "select component_id,component_name,category_name,description,total_price,component_status,picture "
+					+ "from component_info where component_status='Inactive'";
+			pstmt = con.prepareStatement(showQuery);
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Components component = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
 						rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
@@ -86,7 +88,7 @@ public class ComponentDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(pstmt, con, rs);
 		}
 		return componentsList;
 	}
@@ -94,14 +96,19 @@ public class ComponentDaoImpl {
 	public List<Components> showComponent(String search) {
 		List<Components> componentsList = new ArrayList<Components>();
 		Connection con = ConnectionUtil.getDbConnection();
-		Statement stmt = null;
+	PreparedStatement  pstmt = null;
 		ResultSet rs = null;
+		String searchComponent="%"+search+"%";
+		String searchCategory="%"+search+"%";	
 		try {
-			String showQuery = "select component_id,component_name,category_name,description,total_price,component_status,picture from component_info where component_name like '%"
-					+ search + "%' or category_name like '%" + search + "%'";
+			
+			String showQuery = "select component_id,component_name,category_name,description,total_price,component_status,picture from "
+					+ "component_info where component_name like ? or category_name like ?";
 
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(showQuery);
+			pstmt = con.prepareStatement(showQuery);
+			pstmt.setString(1, searchComponent);
+			pstmt.setString(2, searchCategory);
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Components component = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
 						rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
@@ -112,13 +119,16 @@ public class ComponentDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(pstmt, con, rs);
 		}
 		return componentsList;
 	}
 
 	public List<Order> offers() {
-		String showQuery = "select c.component_id,c.component_name,c.category_name,c.description,c.total_price, sum(o.quantity) as quantity from component_info c join orders_table o on c.component_id=o.component_id group by (c.component_name,c.total_price,c.category_name,c.component_id,c.description) order by sum(quantity) fetch first 1 rows only ";
+		String showQuery = "select c.component_id,c.component_name,c.category_name,c.description,c.total_price, sum(o.quantity) as quantity "
+				+ "from component_info c join orders_table o on c.component_id=o.component_id group by (c.component_name,c.total_price,"
+				+ "c.category_name,c.component_id,c.description) "
+				+ "order by sum(quantity) fetch first 1 rows only ";
 		Connection con = ConnectionUtil.getDbConnection();
 		PreparedStatement preparedstatement = null;
 		ResultSet resultset = null;
@@ -143,25 +153,25 @@ public class ComponentDaoImpl {
 	}
 
 	public int findComponentId(String ComponentName) {
-		String query = "select component_id from component_info where component_name='" + ComponentName + "'";
+		String query = "select component_id from component_info where component_name=?";
 		Connection con = ConnectionUtil.getDbConnection();
-		Statement stmt = null;
+		PreparedStatement preparedstatement = null;
 		ResultSet rs = null;
 		int componentId = 0;
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
+			preparedstatement = con.prepareStatement(query);
+			rs = preparedstatement.executeQuery(query);
 			if (rs.next()) {
-				componentId = rs.getInt(COMPONENTID);
+				componentId = rs.getInt(1);
+				ComponentName=rs.getString(2);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closePreparedStatement(preparedstatement, con, rs);
 		}
 		return componentId;
-
 	}
 
 	public String findComponent(int componentId) {
@@ -225,22 +235,21 @@ public class ComponentDaoImpl {
 	}
 
 	public Double findPrice(int comId) {
-		String query = "select select component_id,component_name,category_name,description,total_price,component_status,picture from component_info where component_id='"
-				+ comId + "'";
+		String query = "select component_id,component_name,category_name,description,total_price,component_status,picture from component_info where component_id=?";
 		Connection con = ConnectionUtil.getDbConnection();
 		double price = 0;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery(query);
 			if (rs.next()) {
 				price = rs.getDouble(TOTALPRICE);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(pstmt, con, rs);
 		}
 		return price;
 	}

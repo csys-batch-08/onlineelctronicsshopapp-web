@@ -12,7 +12,7 @@ import com.onlineelectronicshop.model.Cart;
 import com.onlineelectronicshop.model.Components;
 import com.onlineelectronicshop.model.Order;
 import com.onlineelectronicshop.util.ConnectionUtil;
-import com.onlineelectronicshopdao.CartDAO;
+
 
 public class CartDaoImpl {
 	static final String USERID="USER_ID";

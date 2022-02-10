@@ -31,7 +31,7 @@ public class ShowCalculateAmountServlet extends HttpServlet {
 		Date toDate = (Date) session.getAttribute("ToDate");
 		OrderDaoImpl orderDao = new OrderDaoImpl();
 		List<Order> orderList = orderDao.CalculateAmount(fromDate, toDate);
-		request.setAttribute("list2", orderList);
+		session.setAttribute("list2", orderList);
 		RequestDispatcher requestDispatch = request.getRequestDispatcher("sales.jsp");
 		requestDispatch.forward(request, response);
 	}

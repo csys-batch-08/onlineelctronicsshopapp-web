@@ -45,7 +45,6 @@ public class UserDaoImpl {
 			
 		}
 		finally {
-			
 				conUtil.closePreparedStatement(pstmt, con);
 			
 		}
@@ -53,16 +52,18 @@ public class UserDaoImpl {
 	}
 
 	public  User validateUser(String emailId, String password) {
-		String validateQuery ="select user_id,user_name,email_id,password,contact_number,address,role,wallet from user_details where email_id='"+emailId+"' and password='"+password+"'";
-				
+		String validateQuery ="select user_id,user_name,email_id,password,contact_number,address,role,wallet from user_details where email_id=? and password=?";
+			
 		Connection con = ConnectionUtil.getDbConnection();
 		User user = null; 
 		ResultSet rs=null;
-		Statement st=null;
+		PreparedStatement preparestatment=null;
 		
 		try {
-		  st = con.createStatement();
-			rs = st.executeQuery(validateQuery);
+			preparestatment = con.prepareStatement(validateQuery);
+			preparestatment.setString(1, emailId);
+			preparestatment.setString(2, password);
+			rs = preparestatment.executeQuery();
 			if (rs.next()) {
 				 
 				user = new User(rs.getInt(USERID),rs.getString(USERNAME),emailId, password, rs.getLong(CONTACTNUMBER),rs.getString(ADDRESS),rs.getString(ROLE),rs.getDouble(WALLET));
@@ -71,7 +72,7 @@ public class UserDaoImpl {
 			e.printStackTrace();
 		}
 		finally {
-			ConnectionUtil.closeStatement(st, con, rs);
+			ConnectionUtil.closeStatement(preparestatment, con, rs);
 		}
 		return user;
 
@@ -114,17 +115,17 @@ finally {
 	}
 
 	public int findUserId(String emailId) {
-		String findUserId = "select user_id from user_details where email_id='" +emailId + "'";
+		String query = "select user_id from user_details where email_id=?";
 		Connection con = ConnectionUtil.getDbConnection();
-		Statement stmt=null;
+		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		 int userId=0 ;
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(findUserId);
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
 			if (rs.next()) {
 
-				userId = rs.getInt(1);
+				userId = rs.getInt(USERID);
 			}
 
 		} catch (SQLException e) {
@@ -142,11 +143,12 @@ finally {
 
 		String showQuery = "select user_id,user_name,email_id,password,contact_number,address,role,wallet from user_details where role='user'";
 		Connection con = ConnectionUtil.getDbConnection();
-		Statement stmt=null;
+		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(showQuery);
+			pstmt = con.prepareStatement(showQuery);
+			
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
 				UsersList.add(
@@ -156,7 +158,7 @@ finally {
 			e.printStackTrace();
 		}
 		finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(pstmt, con, rs);
 		}
 		
 		return UsersList;

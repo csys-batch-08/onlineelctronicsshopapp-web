@@ -40,13 +40,9 @@ body{
 <tr>
 
 <td>${component.componentName}</td>
-
 <td>${component.categoryName}</td>
 <td>${component.description}</td>
 <td>${component.price}</td>
-
-
-
 <td>
 <form action="updateComponentServelt" method="post">
 <label>Enter Price</label><br>

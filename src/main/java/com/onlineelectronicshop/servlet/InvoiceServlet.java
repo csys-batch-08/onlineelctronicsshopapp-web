@@ -30,7 +30,6 @@ public class InvoiceServlet extends HttpServlet {
 		List<List<Object>> list = invoice.showBill(user.getUserid());
 		session.setAttribute("invoice", list);
 		response.sendRedirect("invoice.jsp");
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

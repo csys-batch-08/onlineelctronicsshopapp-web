@@ -34,9 +34,10 @@ public class RechargeWalletServlet extends HttpServlet {
 		double amount = Integer.parseInt(request.getParameter("wallbal"));
 		WalletDaoImpl walletDao = new WalletDaoImpl();
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("CurentUser");
+		User user = (User) session.getAttribute("CurrentUser");
 		int userId = user.getUserid();
 		walletDao.updateWalletbalance(amount, userId);
+		response.sendRedirect("myProfile.jsp");
 		doGet(request, response);
 	}
 

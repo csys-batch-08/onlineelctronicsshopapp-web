@@ -23,7 +23,6 @@ public class MyProfileServlet extends HttpServlet {
     
     public MyProfileServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	
@@ -40,7 +39,7 @@ public class MyProfileServlet extends HttpServlet {
 		}
 		List<User> newUser= new ArrayList<User>();
 		newUser.add(user);
-		request.setAttribute("listOfUser",newUser);
+		session.setAttribute("listOfUser",newUser);
 		RequestDispatcher requestDispatch = request.getRequestDispatcher("myProfile.jsp");
 		requestDispatch.forward(request, response);
 	}

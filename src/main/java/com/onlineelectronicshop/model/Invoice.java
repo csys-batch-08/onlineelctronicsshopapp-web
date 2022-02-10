@@ -1,12 +1,17 @@
 package com.onlineelectronicshop.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Invoice {
+public class Invoice implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private User user;
 	private Order order;
 	public User getUser() {

@@ -22,7 +22,7 @@ public class OrderDaoImpl {
 	static final String COMPONENTNAME = "COMPONENT_NAME";
 	static final String ADDRESS = "ADDRESS";
 	static final String ORDERSTATUS = "ORDER_STATUS";
-	static final String TOTALPRICE = "TOTAL_PRICE";
+	static final String PRICE= "TOTAL_PRICE";
 	static final String COMPONENTSTATUS = "COMPONENT_STATUS";
 	static final String USERID = "USER_ID";
 	static final String QUANTITY = "QUANTITY";
@@ -54,19 +54,18 @@ public class OrderDaoImpl {
 		List<Order> orderList = new ArrayList<Order>();
 		ComponentDaoImpl comDao = new ComponentDaoImpl();
 
-		Statement stmt = null;
+		PreparedStatement preparestatement = null;
 		ResultSet rs = null;
-		String query = "select order_id,user_id,component_id,quantity,total_price,address,order_date,order_status from orders_table where order_status='Not delivered' "
-				+ "and user_id='"
-				+ userId + "'order by order_date desc";
+		String query = "select order_id,user_id,component_id,quantity,total_price,address,order_date,order_status from orders_table where order_status='Not delivered' and user_id=? order by order_date desc";
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
+			preparestatement = con.prepareStatement(query);
+			preparestatement.setInt(1, userId);
+			rs = preparestatement.executeQuery();
 
 			while (rs.next()) {
 				String componentName = comDao.findComponent(rs.getInt(COMPONENTID));
 				Order order = new Order(rs.getInt(ORDERID), rs.getInt(COMPONENTID), rs.getInt(USERID),
-						rs.getInt(QUANTITY), rs.getDouble(TOTALPRICE), rs.getString(ADDRESS),
+						rs.getInt(QUANTITY), rs.getDouble(PRICE), rs.getString(ADDRESS),
 						rs.getDate(ORDERDATE).toLocalDate(), rs.getString(ORDERSTATUS), componentName);
 
 				orderList.add(order);
@@ -76,21 +75,22 @@ public class OrderDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(preparestatement, con, rs);
 		}
 		return orderList;
 
 	}
 
 	public LocalDate findOrderDate(int userId) {
-		String query = "select order_Date from orders_table where user_id='" + userId + "'";
+		String query = "select order_Date from orders_table where user_id=?";
 		Connection con = ConnectionUtil.getDbConnection();
 		LocalDate orderDate = null;
-		Statement stmt = null;
+		PreparedStatement preparestatment = null;
 		ResultSet rs = null;
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
+			preparestatment = con.prepareStatement(query);
+			preparestatment.setInt(1, userId);
+			rs = preparestatment.executeQuery();
 			if (rs.next()) {
 				orderDate = rs.getDate(ORDERDATE).toLocalDate();
 			}
@@ -98,7 +98,7 @@ public class OrderDaoImpl {
 
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(preparestatment, con, rs);
 		}
 		return orderDate;
 
@@ -127,16 +127,16 @@ public class OrderDaoImpl {
 	public List<Order> orderList() {
 		Connection con = ConnectionUtil.getDbConnection();
 		List<Order> orderList = new ArrayList<Order>();
-		Statement stmt = null;
+		PreparedStatement preparestatement = null;
 		ResultSet rs = null;
 		String query = "select order_id,user_id,component_id,quantity,total_price,address,order_date,order_status from orders_table";
 		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
+			preparestatement = con.prepareStatement(query);
+			rs = preparestatement.executeQuery();
 
 			while (rs.next()) {
 				Order order = new Order(rs.getInt(ORDERID), rs.getInt(COMPONENTID), rs.getInt(USERID),
-						rs.getInt(QUANTITY), rs.getDouble(TOTALPRICE), rs.getString(ADDRESS),
+						rs.getInt(QUANTITY), rs.getDouble(PRICE), rs.getString(ADDRESS),
 						rs.getDate(ORDERDATE).toLocalDate(), rs.getString(ORDERSTATUS));
 
 				orderList.add(order);
@@ -146,7 +146,7 @@ public class OrderDaoImpl {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionUtil.closeStatement(stmt, con, rs);
+			ConnectionUtil.closeStatement(preparestatement, con, rs);
 		}
 		return orderList;
 	}
@@ -178,7 +178,8 @@ public class OrderDaoImpl {
 		ResultSet rs = null;
 		Order order = null;
 		PreparedStatement pstmt = null;
-		String query = "select component_id,sum(total_price) from orders_table where order_status='delivered' and order_date between ? and ? group by component_id";
+		String query = "select component_id,sum(total_price) from orders_table where order_status='delivered'"
+				+ " and order_date between ? and ? group by component_id";
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setDate(1, new java.sql.Date(fromDate.getTime()));
@@ -187,7 +188,7 @@ public class OrderDaoImpl {
 			while (rs.next()) {
 				order = new Order();
 				order.setComponentId(rs.getInt(COMPONENTID));
-				order.setTotalPrice(rs.getDouble(TOTALPRICE));
+				order.setTotalPrice(rs.getDouble(PRICE));
 				orderList.add(order);
 			}
 

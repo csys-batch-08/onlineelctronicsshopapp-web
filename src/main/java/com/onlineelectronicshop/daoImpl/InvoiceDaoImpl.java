@@ -20,10 +20,9 @@ public class InvoiceDaoImpl {
 	static final String ORDERDATE="ORDER_DATE";
 	static final String QUANTITY="quantity";
 	
-	
 	public List<List<Object>> showBill(int userId) {
 		Connection con = ConnectionUtil.getDbConnection();
-		
+		System.out.println(userId);
 		String showQuery = "select u.user_name,c.component_name,o.quantity,o.total_price,o.order_date from user_details"
 				+ "         u join orders_table o on u.user_id=o.user_id"
 				+ "         join component_info c on c.component_id=o.component_id where o.user_id=? order by o.order_id desc fetch first 1 row only";

@@ -1,7 +1,12 @@
 package com.onlineelectronicshop.model;
 
-	import java.util.Objects;
-	public class Components {
+	import java.io.Serializable;
+import java.util.Objects;
+	public class Components implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		private int componentId;
 		private String componentName;
 		private String categoryName;

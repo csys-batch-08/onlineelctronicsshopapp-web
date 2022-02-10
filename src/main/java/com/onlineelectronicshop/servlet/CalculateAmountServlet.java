@@ -31,8 +31,7 @@ public class CalculateAmountServlet extends HttpServlet {
 			HttpSession session=request.getSession();
 			session.setAttribute("FromDate", fromDate);
 			session.setAttribute("ToDate", toDate);
-			response.sendRedirect("ShowCalculateAmountServlet");
-			
+			response.sendRedirect("ShowCalculateAmountServlet");	
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}			
