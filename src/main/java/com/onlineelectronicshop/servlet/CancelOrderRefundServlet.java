@@ -27,26 +27,27 @@ public class CancelOrderRefundServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		
-			
-		
 		try {
-			OrderDaoImpl orderDao = new OrderDaoImpl();
-			int userId = (int) session.getAttribute("userId");
-			UserDaoImpl userDao = new UserDaoImpl();
-			ComponentDaoImpl comDao = new ComponentDaoImpl();
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session = request.getSession();
+			
+				
+			
+			
+				OrderDaoImpl orderDao = new OrderDaoImpl();
+				int userId = (int) session.getAttribute("userId");
+				UserDaoImpl userDao = new UserDaoImpl();
+				ComponentDaoImpl comDao = new ComponentDaoImpl();
 
-			List<Order> orderList = orderDao.showOrder(userId);
-			User user = userDao.findUser(userId);
-			request.setAttribute("listOfOrder", orderList);
-			request.setAttribute("User", user);
-			RequestDispatcher requestDispatch = request.getRequestDispatcher("cancelOrder.jsp");
-			requestDispatch.forward(request, response);
-		} catch (ServletException e) {
-			e.printStackTrace();
+				List<Order> orderList = orderDao.showOrder(userId);
+				User user = userDao.findUser(userId);
+				request.setAttribute("listOfOrder", orderList);
+				request.setAttribute("User", user);
+				RequestDispatcher requestDispatch = request.getRequestDispatcher("cancelOrder.jsp");
+				requestDispatch.forward(request, response);
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
 			e.printStackTrace();
 		}
 		
