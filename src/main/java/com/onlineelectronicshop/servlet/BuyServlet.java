@@ -31,37 +31,43 @@ public class BuyServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		try {
-		int userId = (int) session.getAttribute("userId");
-		int compid = (int) session.getAttribute("componentId");
-		
-	    int quantity = Integer.parseInt(request.getParameter("quantity"));
-		
-		
-		String address = request.getParameter("address");
-		Double price1 = (Double) session.getAttribute("price");
-		double totalPrice = (price1 * quantity);
-		WalletDaoImpl walletDao = new WalletDaoImpl();
-		int userWallet = 0;
-		double wallbalance = userWallet - totalPrice;
-		
-			userWallet = walletDao.walletBalance(userId);
-			if (userWallet > totalPrice) {
-				double Blanceamount = userWallet - totalPrice;
-				session.setAttribute("wallbal", Blanceamount);
-				session.setAttribute("totalprice", totalPrice);
-				walletDao.updateWallet(Blanceamount, userId);
-				OrderDaoImpl orderDao = new OrderDaoImpl();
-				Order order = new Order(compid, userId, quantity, totalPrice, address);
-				orderDao.insertOrder(order);
-				response.sendRedirect("orderSuccess.jsp");
-			} else {
-				response.getWriter().println("low balance");
-			}
+			HttpSession session = request.getSession();
+			
+			int userId = (int) session.getAttribute("userId");
+			int compid = (int) session.getAttribute("componentId");
+			
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			
+			
+			String address = request.getParameter("address");
+			Double price1 = (Double) session.getAttribute("price");
+			double totalPrice = (price1 * quantity);
+			WalletDaoImpl walletDao = new WalletDaoImpl();
+			int userWallet = 0;
+			double wallbalance = userWallet - totalPrice;
+			
+				userWallet = walletDao.walletBalance(userId);
+				if (userWallet > totalPrice) {
+					double Blanceamount = userWallet - totalPrice;
+					session.setAttribute("wallbal", Blanceamount);
+					session.setAttribute("totalprice", totalPrice);
+					walletDao.updateWallet(Blanceamount, userId);
+					OrderDaoImpl orderDao = new OrderDaoImpl();
+					Order order = new Order(compid, userId, quantity, totalPrice, address);
+					orderDao.insertOrder(order);
+					response.sendRedirect("orderSuccess.jsp");
+				} else {
+					response.getWriter().println("low balance");
+				}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
 	}
 
 }

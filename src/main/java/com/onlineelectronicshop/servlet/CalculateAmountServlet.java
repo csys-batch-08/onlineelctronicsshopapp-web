@@ -23,19 +23,23 @@ public class CalculateAmountServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
-		response.getWriter().append("Served at: ").append(request.getContextPath());	
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			
-			Date fromDate = sdf.parse(request.getParameter("fromdate"));
-			Date toDate = sdf.parse(request.getParameter("todate"));
-			HttpSession session=request.getSession();
-			session.setAttribute("FromDate", fromDate);
-			session.setAttribute("ToDate", toDate);
-			response.sendRedirect("ShowCalculateAmountServlet");	
+			response.getWriter().append("Served at: ").append(request.getContextPath());	
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date fromDate = sdf.parse(request.getParameter("fromdate"));
+				Date toDate = sdf.parse(request.getParameter("todate"));
+				HttpSession session=request.getSession();
+				session.setAttribute("FromDate", fromDate);
+				session.setAttribute("ToDate", toDate);
+				response.sendRedirect("ShowCalculateAmountServlet");
+		} catch (IOException e) {
+			e.printStackTrace();
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}			
+		}	
+				
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}

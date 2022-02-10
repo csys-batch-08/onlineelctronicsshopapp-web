@@ -32,33 +32,35 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			HttpSession session = request.getSession();
-			PrintWriter pw = response.getWriter();
-			Connection con = ConnectionUtil.getDbConnection();
-			String emailid = request.getParameter("loginemail");
-			session.setAttribute("emailId", emailid);
-			String password = request.getParameter("loginpassword");
-			UserDaoImpl userDaoImpl = new UserDaoImpl();
-			int userId = userDaoImpl.findUserId(emailid);
-			session.setAttribute("userId", userId);
-			User Currentuser = userDaoImpl.validateUser(emailid, password);
-			String userName = Currentuser.getUserName();
-			session.setAttribute("userName", userName);
-			session.setAttribute("CurentUser", Currentuser);
-			if (Currentuser.getRole().equals("user")) {
-				session.setAttribute("CurrentUser", Currentuser);
-				session.setAttribute("userId", Currentuser.getUserid());
-				response.sendRedirect("viewHomePage.jsp");
-			}
+	
+			try {
+				HttpSession session = request.getSession();
+				PrintWriter pw = response.getWriter();
+				Connection con = ConnectionUtil.getDbConnection();
+				String emailid = request.getParameter("loginemail");
+				session.setAttribute("emailId", emailid);
+				String password = request.getParameter("loginpassword");
+				UserDaoImpl userDaoImpl = new UserDaoImpl();
+				int userId = userDaoImpl.findUserId(emailid);
+				session.setAttribute("userId", userId);
+				User Currentuser = userDaoImpl.validateUser(emailid, password);
+				String userName = Currentuser.getUserName();
+				session.setAttribute("userName", userName);
+				session.setAttribute("CurentUser", Currentuser);
+				if (Currentuser.getRole().equals("user")) {
+					session.setAttribute("CurrentUser", Currentuser);
+					session.setAttribute("userId", Currentuser.getUserid());
+					response.sendRedirect("viewHomePage.jsp");
+				}
 
-			else if (Currentuser.getRole().equals("admin")) {
-				response.sendRedirect("admin.jsp");
-				pw.write("welcome admin");
+				else if (Currentuser.getRole().equals("admin")) {
+					response.sendRedirect("admin.jsp");
+					pw.write("welcome admin");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
-}
+
