@@ -29,15 +29,21 @@ public class ShowInactiveComponentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		ComponentDaoImpl comDao = new ComponentDaoImpl();
-		UserDaoImpl userDaoImpl = new UserDaoImpl();
-		List<Components> componentList = comDao.showInactive();
-		request.setAttribute("InactivecomponentList", componentList);
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("showInactiveComponent.jsp");
-		requestDispatch.forward(request, response);
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			ComponentDaoImpl comDao = new ComponentDaoImpl();
+			UserDaoImpl userDaoImpl = new UserDaoImpl();
+			List<Components> componentList = comDao.showInactive();
+			request.setAttribute("InactivecomponentList", componentList);
+			RequestDispatcher requestDispatch = request.getRequestDispatcher("showInactiveComponent.jsp");
+			requestDispatch.forward(request, response);
 
-		doGet(request, response);
+			doGet(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

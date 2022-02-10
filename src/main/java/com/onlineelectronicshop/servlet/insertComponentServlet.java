@@ -27,17 +27,25 @@ public class insertComponentServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String componentName=request.getParameter("componentName");
-		String categoryName=request.getParameter("categoryName");
-		String description=request.getParameter("description");
-		Double price=Double.parseDouble(request.getParameter("price"));
-		String available=request.getParameter("available" );
-		String image=request.getParameter("componentImage");
-	    Components component=new Components(componentName,categoryName,description,price,available,image);
-		ComponentDaoImpl comDao=new ComponentDaoImpl();
-		comDao.insertComponent(component);
-		response.sendRedirect("viewComponent.jsp");
-		doGet(request, response);
+		try {
+			String componentName=request.getParameter("componentName");
+			String categoryName=request.getParameter("categoryName");
+			String description=request.getParameter("description");
+			Double price=Double.parseDouble(request.getParameter("price"));
+			String available=request.getParameter("available" );
+			String image=request.getParameter("componentImage");
+			Components component=new Components(componentName,categoryName,description,price,available,image);
+			ComponentDaoImpl comDao=new ComponentDaoImpl();
+			comDao.insertComponent(component);
+			response.sendRedirect("viewComponent.jsp");
+			doGet(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

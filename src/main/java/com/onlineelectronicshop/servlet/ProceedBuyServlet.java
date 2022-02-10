@@ -25,25 +25,32 @@ public class ProceedBuyServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		String componentName=request.getParameter("compantName");
-		Double price=Double.parseDouble(request.getParameter("price"));
-		int componentId=Integer.parseInt(request.getParameter("componentId"));
-		int userId=(int) session.getAttribute("userId");
-		CartDaoImpl cartDao=new CartDaoImpl();
-		List<Components> componentsList=cartDao.fetchCart(userId);
-		for(Components component:componentsList){	
-			session.setAttribute("componentName", componentName);
-			session.setAttribute("componentId",componentId);
-			session.setAttribute("price", price);
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session=request.getSession();
+			String componentName=request.getParameter("compantName");
+			Double price=Double.parseDouble(request.getParameter("price"));
+			int componentId=Integer.parseInt(request.getParameter("componentId"));
+			int userId=(int) session.getAttribute("userId");
+			CartDaoImpl cartDao=new CartDaoImpl();
+			List<Components> componentsList=cartDao.fetchCart(userId);
+			for(Components component:componentsList){	
+				session.setAttribute("componentName", componentName);
+				session.setAttribute("componentId",componentId);
+				session.setAttribute("price", price);
+			}
+			
+			RequestDispatcher requestDispatch=request.getRequestDispatcher("buyComponent.jsp");
+			requestDispatch.forward(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
 		}
-		
-		RequestDispatcher requestDispatch=request.getRequestDispatcher("buyComponent.jsp");
-		requestDispatch.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

@@ -23,18 +23,21 @@ public class InvoiceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("CurrentUser");
-		InvoiceDaoImpl invoice = new InvoiceDaoImpl();
-		List<List<Object>> list = invoice.showBill(user.getUserid());
-		session.setAttribute("invoice", list);
-		response.sendRedirect("invoice.jsp");
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("CurrentUser");
+			InvoiceDaoImpl invoice = new InvoiceDaoImpl();
+			List<List<Object>> list = invoice.showBill(user.getUserid());
+			session.setAttribute("invoice", list);
+			response.sendRedirect("invoice.jsp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

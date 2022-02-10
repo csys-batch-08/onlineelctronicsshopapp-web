@@ -19,39 +19,43 @@ import com.onlineelectronicshop.model.Cart;
 import com.onlineelectronicshop.model.Components;
 import com.onlineelectronicshop.model.Order;
 @WebServlet("/insertCartServlet")
-/**
- * Servlet implementation class InsetCartServlet
- */
+
 public class InsetCartServlet extends HttpServlet {
 	
 	
 		private static final long serialVersionUID = 1L;
 	       
-	    /**
-	     * @see HttpServlet#HttpServlet()
-	     */
+	    
 	    public InsetCartServlet() {
 	        super();
 	    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
-		int comId=Integer.parseInt(request.getParameter("compantId"));
-		session.setAttribute("compID", comId);
-		String cname=request.getParameter("Cname");
-		session.setAttribute("componentName" ,cname);
-		int userId1=(int)session.getAttribute("userId");
+		try {
+			HttpSession session=request.getSession();
+			int comId=Integer.parseInt(request.getParameter("compantId"));
+			session.setAttribute("compID", comId);
+			String cname=request.getParameter("Cname");
+			session.setAttribute("componentName" ,cname);
+			int userId1=(int)session.getAttribute("userId");
 
-		CartDaoImpl cartDao=new CartDaoImpl();
-       Cart cart=new Cart(userId1,comId);
-       cartDao.insertCart(cart);
-       request.setAttribute("componentnewId", cart);
-       int userId=(int) session.getAttribute("userId");   
-       int compid=(int) session.getAttribute("compID");
-       List<Components> componentsList=cartDao.fetchCart(userId);   
-       request.setAttribute("viewCart", componentsList);
-   	RequestDispatcher requestDispatch=request.getRequestDispatcher("viewCart.jsp");
-   	requestDispatch.forward(request, response);
+			CartDaoImpl cartDao=new CartDaoImpl();
+      Cart cart=new Cart(userId1,comId);
+      cartDao.insertCart(cart);
+      request.setAttribute("componentnewId", cart);
+      int userId=(int) session.getAttribute("userId");   
+      int compid=(int) session.getAttribute("compID");
+      List<Components> componentsList=cartDao.fetchCart(userId);   
+      request.setAttribute("viewCart", componentsList);
+  	RequestDispatcher requestDispatch=request.getRequestDispatcher("viewCart.jsp");
+  	requestDispatch.forward(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

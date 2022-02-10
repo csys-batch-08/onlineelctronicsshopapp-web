@@ -23,9 +23,10 @@ public class CalculateAmountServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		response.getWriter().append("Served at: ").append(request.getContextPath());	
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		try {		
+			
 			Date fromDate = sdf.parse(request.getParameter("fromdate"));
 			Date toDate = sdf.parse(request.getParameter("todate"));
 			HttpSession session=request.getSession();
@@ -37,7 +38,6 @@ public class CalculateAmountServlet extends HttpServlet {
 		}			
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

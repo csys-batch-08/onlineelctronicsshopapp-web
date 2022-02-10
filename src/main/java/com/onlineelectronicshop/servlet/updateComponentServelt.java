@@ -17,12 +17,18 @@ import com.onlineelectronicshop.daoImpl.ComponentDaoImpl;
 public class updateComponentServelt extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ComponentDaoImpl comDao=new ComponentDaoImpl();
-		HttpSession session=request.getSession();
-		String componentName=request.getParameter("component");
-		double newPrice2=Double.parseDouble(request.getParameter("newPrice"));
-		comDao.updateComponent(newPrice2, componentName);
-		response.sendRedirect("admin.jsp");
+		try {
+			ComponentDaoImpl comDao=new ComponentDaoImpl();
+			HttpSession session=request.getSession();
+			String componentName=request.getParameter("component");
+			double newPrice2=Double.parseDouble(request.getParameter("newPrice"));
+			comDao.updateComponent(newPrice2, componentName);
+			response.sendRedirect("admin.jsp");
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	
 	}
 	

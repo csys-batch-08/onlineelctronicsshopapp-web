@@ -16,51 +16,46 @@ import com.onlineelectronicshop.daoImpl.UserDaoImpl;
 import com.onlineelectronicshop.model.Components;
 import com.onlineelectronicshop.model.Order;
 
-/**
- * Servlet implementation class OffersServlet
- */
 @WebServlet("/OffersServlet")
 public class OffersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OffersServlet() {
-        super();
-        
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		HttpSession session=request.getSession();
-		ComponentDaoImpl comDao = new ComponentDaoImpl();
-		UserDaoImpl userDaoImpl = new UserDaoImpl();
-		List<Order> order=comDao.offers();
-		List<Components> componentList = comDao.showComponent();
-		for (int i = 0; i < order.size(); i++) {
-			
-			Components comDao1 = componentList.get(i);
-			session.setAttribute("componentName", comDao1.getComponentName());
-			session.setAttribute("price", comDao1.getPrice());
-			session.setAttribute("Category", comDao1.getCategoryName());
-		}
-	request.setAttribute("offer", order);
-	RequestDispatcher requestDispatch=request.getRequestDispatcher("offer.jsp");
-	requestDispatch.forward(request, response);
+	public OffersServlet() {
+		super();
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+
+			HttpSession session = request.getSession();
+			ComponentDaoImpl comDao = new ComponentDaoImpl();
+			UserDaoImpl userDaoImpl = new UserDaoImpl();
+			List<Order> order = comDao.offers();
+			List<Components> componentList = comDao.showComponent();
+			for (int i = 0; i < order.size(); i++) {
+
+				Components comDao1 = componentList.get(i);
+				session.setAttribute("componentName", comDao1.getComponentName());
+				session.setAttribute("price", comDao1.getPrice());
+				session.setAttribute("Category", comDao1.getCategoryName());
+			}
+			request.setAttribute("offer", order);
+			RequestDispatcher requestDispatch = request.getRequestDispatcher("offer.jsp");
+			requestDispatch.forward(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 	}
 
 }

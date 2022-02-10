@@ -15,33 +15,29 @@ import com.onlineelectronicshop.daoImpl.OrderDaoImpl;
 public class OrderStatusChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public OrderStatusChangeServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		int orderid=Integer.parseInt(request.getParameter("orderid"));
-		OrderDaoImpl orderDao=new OrderDaoImpl();
-		boolean b=orderDao.updateOrderStatus(orderid);
-		if(b) {
-			
-			response.sendRedirect("OrderListServlet");
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			int orderid=Integer.parseInt(request.getParameter("orderid"));
+			OrderDaoImpl orderDao=new OrderDaoImpl();
+			boolean b=orderDao.updateOrderStatus(orderid);
+			if(b) {
+				
+				response.sendRedirect("OrderListServlet");
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		
-		
-		
 		
 		
 	}

@@ -23,18 +23,23 @@ public class ShowUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		UserDaoImpl userDao = new UserDaoImpl();
-		List<User> UsersList = userDao.showAllUser();
-		request.setAttribute("listOfUser", UsersList);
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("showUser.jsp");
-		requestDispatch.forward(request, response);
+			UserDaoImpl userDao = new UserDaoImpl();
+			List<User> UsersList = userDao.showAllUser();
+			request.setAttribute("listOfUser", UsersList);
+			RequestDispatcher requestDispatch = request.getRequestDispatcher("showUser.jsp");
+			requestDispatch.forward(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

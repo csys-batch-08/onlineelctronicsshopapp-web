@@ -30,27 +30,34 @@ public class OfferDetailServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		String componentName=request.getParameter("componentName");
-		String categoryName=request.getParameter("categoryName");
-		Double offerPrice=Double.parseDouble(request.getParameter("price"));
-		Components component=new Components();
-		component.setComponentName(componentName);
-		component.setCategoryName(categoryName);
-		component.setPrice(offerPrice);
-		List<Components> componentList=new ArrayList<Components>();
-		componentList.add(component);
-		request.setAttribute("Offers",componentList);
-		request.setAttribute("componentDetail", component);
-		RequestDispatcher requestDispatcher=request.getRequestDispatcher("offerDetail.jsp");
-		requestDispatcher.forward(request, response);
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session=request.getSession();
+			String componentName=request.getParameter("componentName");
+			String categoryName=request.getParameter("categoryName");
+			Double offerPrice=Double.parseDouble(request.getParameter("price"));
+			Components component=new Components();
+			component.setComponentName(componentName);
+			component.setCategoryName(categoryName);
+			component.setPrice(offerPrice);
+			List<Components> componentList=new ArrayList<Components>();
+			componentList.add(component);
+			request.setAttribute("Offers",componentList);
+			request.setAttribute("componentDetail", component);
+			RequestDispatcher requestDispatcher=request.getRequestDispatcher("offerDetail.jsp");
+			requestDispatcher.forward(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
 	}
 
 }

@@ -27,29 +27,34 @@ public class SearchComponentServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String component=request.getParameter("search");
-		ComponentDaoImpl compontDao=new ComponentDaoImpl();
-		List<Components>ShowComponent=compontDao.showComponent(component);
-		for(int i=0;i<ShowComponent.size();i++) {
-			Components user=ShowComponent.get(i);
-			if(user.getComponentName().equalsIgnoreCase(component))
-			{
-				ShowComponent.add(user);	
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			String component=request.getParameter("search");
+			ComponentDaoImpl compontDao=new ComponentDaoImpl();
+			List<Components>ShowComponent=compontDao.showComponent(component);
+			for(int i=0;i<ShowComponent.size();i++) {
+				Components user=ShowComponent.get(i);
+				if(user.getComponentName().equalsIgnoreCase(component))
+				{
+					ShowComponent.add(user);	
+				}
+				else if(user.getCategoryName().equalsIgnoreCase(component))
+				{
+					ShowComponent.add(user);
+				}
 			}
-			else if(user.getCategoryName().equalsIgnoreCase(component))
-			{
-				ShowComponent.add(user);
-			}
+			
+			HttpSession session=request.getSession();
+			request.setAttribute("list",ShowComponent);
+			RequestDispatcher requestDispatch=request.getRequestDispatcher("searchComponents.jsp");
+			requestDispatch.forward(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
 		}
-		
-		HttpSession session=request.getSession();
-		request.setAttribute("list",ShowComponent);
-		RequestDispatcher requestDispatch=request.getRequestDispatcher("searchComponents.jsp");
-		requestDispatch.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

@@ -29,19 +29,24 @@ public class UpdateShowComponentServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		ComponentDaoImpl comDao = new ComponentDaoImpl();
-		UserDaoImpl userDaoImpl = new UserDaoImpl();
-		List<Components> componentList = comDao.showComponent();
-		request.setAttribute("showComponent", componentList);
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("showProductAdmin.jsp");
-		requestDispatch.forward(request, response);
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session = request.getSession();
+			ComponentDaoImpl comDao = new ComponentDaoImpl();
+			UserDaoImpl userDaoImpl = new UserDaoImpl();
+			List<Components> componentList = comDao.showComponent();
+			request.setAttribute("showComponent", componentList);
+			RequestDispatcher requestDispatch = request.getRequestDispatcher("showProductAdmin.jsp");
+			requestDispatch.forward(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

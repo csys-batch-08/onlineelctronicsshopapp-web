@@ -21,29 +21,33 @@ public class CancelOrderServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		int orderid=Integer.parseInt(request.getParameter("orderId"));
-		double price=Double.parseDouble(request.getParameter("refundprice"));
-		User user=(User)session.getAttribute("CurentUser");
-		OrderDaoImpl orderDao=new OrderDaoImpl();	
-		boolean b=orderDao.updateStatus(orderid);
-		if(b) {
-			WalletDaoImpl wallet=new WalletDaoImpl();
-			
-			boolean b1=wallet.refundWallet(price,user);
-			if(b1) {
-				session.setAttribute("cancel","Order cancelled and amount refunded successfully!!");
-				response.sendRedirect("CancelOrderRefundServlet");
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session=request.getSession();
+			int orderid=Integer.parseInt(request.getParameter("orderId"));
+			double price=Double.parseDouble(request.getParameter("refundprice"));
+			User user=(User)session.getAttribute("CurentUser");
+			OrderDaoImpl orderDao=new OrderDaoImpl();	
+			boolean b=orderDao.updateStatus(orderid);
+			if(b) {
+				WalletDaoImpl wallet=new WalletDaoImpl();
+				
+				boolean b1=wallet.refundWallet(price,user);
+				if(b1) {
+					session.setAttribute("cancel","Order cancelled and amount refunded successfully!!");
+					response.sendRedirect("CancelOrderRefundServlet");
+					
+				}
 				
 			}
-			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

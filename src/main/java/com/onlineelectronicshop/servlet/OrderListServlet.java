@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.onlineelectronicshop.daoImpl.OrderDaoImpl;
 import com.onlineelectronicshop.model.Order;
 
-/**
- * Servlet implementation class OrderListServlet
- */
+
 @WebServlet("/OrderListServlet")
 public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,17 +24,22 @@ public class OrderListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		OrderDaoImpl orderDao=new OrderDaoImpl();	
-		List<Order> orderList = orderDao.orderList();
-		request.setAttribute("listOrder", orderList);
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("orderList.jsp");
-		requestDispatch.forward(request, response);
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			OrderDaoImpl orderDao=new OrderDaoImpl();	
+			List<Order> orderList = orderDao.orderList();
+			request.setAttribute("listOrder", orderList);
+			RequestDispatcher requestDispatch = request.getRequestDispatcher("orderList.jsp");
+			requestDispatch.forward(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

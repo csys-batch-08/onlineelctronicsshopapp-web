@@ -25,13 +25,19 @@ public class DeleteProductServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		ComponentDaoImpl comDao = new ComponentDaoImpl();
-		List<Components> componentsList = comDao.showComponent();
-		request.setAttribute("components", componentsList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("deleteComponent.jsp");
-		dispatcher.forward(request, response);
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session = request.getSession();
+			ComponentDaoImpl comDao = new ComponentDaoImpl();
+			List<Components> componentsList = comDao.showComponent();
+			request.setAttribute("components", componentsList);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("deleteComponent.jsp");
+			dispatcher.forward(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

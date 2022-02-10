@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.onlineelectronicshop.daoImpl.ComponentDaoImpl;
 
-/**
- * Servlet implementation class DeleteComponentAdminServlet
- */
 @WebServlet("/DeleteComponentAdminServlet")
 public class DeleteComponentAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,14 +19,19 @@ public class DeleteComponentAdminServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		int componentID=Integer.parseInt(request.getParameter("componentId"));
-		ComponentDaoImpl componentDaoImpl=new ComponentDaoImpl(); 
-		componentDaoImpl.updateStatus(componentID);
-		response.sendRedirect("admin.jsp");
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			int componentID=Integer.parseInt(request.getParameter("componentId"));
+			ComponentDaoImpl componentDaoImpl=new ComponentDaoImpl(); 
+			componentDaoImpl.updateStatus(componentID);
+			response.sendRedirect("admin.jsp");
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

@@ -25,21 +25,26 @@ public class ShowCalculateAmountServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session = request.getSession();
-		Date fromDate = (Date) session.getAttribute("FromDate");
-		Date toDate = (Date) session.getAttribute("ToDate");
-		OrderDaoImpl orderDao = new OrderDaoImpl();
-		List<Order> orderList = orderDao.CalculateAmount(fromDate, toDate);
-		session.setAttribute("list2", orderList);
-		RequestDispatcher requestDispatch = request.getRequestDispatcher("sales.jsp");
-		requestDispatch.forward(request, response);
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session = request.getSession();
+			Date fromDate = (Date) session.getAttribute("FromDate");
+			Date toDate = (Date) session.getAttribute("ToDate");
+			OrderDaoImpl orderDao = new OrderDaoImpl();
+			List<Order> orderList = orderDao.CalculateAmount(fromDate, toDate);
+			session.setAttribute("list2", orderList);
+			RequestDispatcher requestDispatch = request.getRequestDispatcher("sales.jsp");
+			requestDispatch.forward(request, response);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doGet(request, response);
 	}
 
 }

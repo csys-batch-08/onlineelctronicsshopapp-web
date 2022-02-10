@@ -20,50 +20,36 @@ import com.onlineelectronicshop.daoImpl.CartDaoImpl;
 public class DeleteCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public DeleteCartServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session=request.getSession();
-		CartDaoImpl cartDao=new CartDaoImpl();
-		int componentId=Integer.parseInt(request.getParameter(""));
-		int userId=Integer.parseInt(request.getParameter(""));
-			try {
-				cartDao.deleteCart(componentId, userId);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		try {
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			HttpSession session=request.getSession();
+			CartDaoImpl cartDao=new CartDaoImpl();
+			int componentId=Integer.parseInt(request.getParameter(""));
+			int userId=Integer.parseInt(request.getParameter(""));
+				
+					cartDao.deleteCart(componentId, userId);
+			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("insertCartServlet");
+			requestDispatcher.forward(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}		
 		
-		
-		
-		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("insertCartServlet");
-		requestDispatcher.forward(request, response);	
-	
-	
-    
-		
-		
-		
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	}	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

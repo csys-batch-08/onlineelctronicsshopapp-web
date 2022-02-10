@@ -31,14 +31,22 @@ public class RechargeWalletServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		double amount = Integer.parseInt(request.getParameter("wallbal"));
-		WalletDaoImpl walletDao = new WalletDaoImpl();
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("CurrentUser");
-		int userId = user.getUserid();
-		walletDao.updateWalletbalance(amount, userId);
-		response.sendRedirect("myProfile.jsp");
-		doGet(request, response);
+		try {
+			double amount = Integer.parseInt(request.getParameter("wallbal"));
+			WalletDaoImpl walletDao = new WalletDaoImpl();
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("CurrentUser");
+			int userId = user.getUserid();
+			walletDao.updateWalletbalance(amount, userId);
+			response.sendRedirect("myProfile.jsp");
+			doGet(request, response);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
