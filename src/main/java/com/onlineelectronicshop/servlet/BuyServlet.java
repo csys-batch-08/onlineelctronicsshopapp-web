@@ -27,22 +27,25 @@ public class BuyServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		try {
 		int userId = (int) session.getAttribute("userId");
 		int compid = (int) session.getAttribute("componentId");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		
+	    int quantity = Integer.parseInt(request.getParameter("quantity"));
+		
+		
 		String address = request.getParameter("address");
 		Double price1 = (Double) session.getAttribute("price");
 		double totalPrice = (price1 * quantity);
 		WalletDaoImpl walletDao = new WalletDaoImpl();
 		int userWallet = 0;
 		double wallbalance = userWallet - totalPrice;
-		try {
+		
 			userWallet = walletDao.walletBalance(userId);
 			if (userWallet > totalPrice) {
 				double Blanceamount = userWallet - totalPrice;
@@ -59,7 +62,6 @@ public class BuyServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		doGet(request, response);
 	}
 
 }

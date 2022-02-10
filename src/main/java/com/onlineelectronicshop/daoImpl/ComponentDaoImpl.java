@@ -54,10 +54,10 @@ public class ComponentDaoImpl {
 			pstmt = con.prepareStatement(showQuery);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Components component = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
+				Components components = new Components(rs.getInt(COMPONENTID), rs.getString(COMPONENTNAME),
 						rs.getString(CATEGORYNAME), rs.getString(DESCRIPTION), rs.getDouble(TOTALPRICE),
 						rs.getString(COMPONENTSTATUS), rs.getString(PICTURE));
-				componentsList.add(component);
+				componentsList.add(components);
 			}
 			return componentsList;
 		} catch (SQLException e) {
@@ -160,7 +160,8 @@ public class ComponentDaoImpl {
 		int componentId = 0;
 		try {
 			preparedstatement = con.prepareStatement(query);
-			rs = preparedstatement.executeQuery(query);
+			preparedstatement.setString(1, ComponentName);
+			rs = preparedstatement.executeQuery();
 			if (rs.next()) {
 				componentId = rs.getInt(1);
 				ComponentName=rs.getString(2);
